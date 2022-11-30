@@ -7,21 +7,98 @@
 
 <body class="container">
 
-  <header>
-    <%- include('../partials/header'); %>
-  </header>
-
   <main>
-    <div class="jumbotron">
-      <h1>This is great</h1>
-     
+    <div>
+      <p style="text-align: center;">
+        Use our NFT finder, below, to find your NFTs on the Ethereum and Polygon blockchains and then use them to
+        customize your physical products. The products will then be manufactured on-demand using your selected NFT
+        images and will be on their way to you in 3 - 4 business days.
+      </p>
     </div>
+    <div class="jumbotron row">
+
+      <div class="find-specific col-6">
+        <h1>Find Specific NFT</h1>
+        <form method="get" action="/nft/getSpecific">
+          <div class="find-token form-row">
+            <div class="col-md-4 mb-3">
+              <label>Blockchain<span class="asterisk">*</span></label>
+              <input class='form-control' type="text" name="chain" placeholder="eth or matic" required>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label>Contract address<span class="asterisk">*</span></label>
+              <input class='form-control' type="text" name="contractAddress" placeholder="Contract address..." required>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label>Token ID<span class="asterisk">*</span></label>
+              <input class='form-control' type="text" name="tokenId" placeholder="Token ID..." required>
+            </div>
+          </div>
+          <input class='form-control btn btn-info' type="submit" value="Find">
+        </form>
+        <br>
+        <form method="get" action="/nft/getNFTOpensea">
+          <div class="find-opensea form-row">
+            <div class="col-md-12 mb-3">
+              <label>Or use its Opensea URL<span class="asterisk">*</span></label>
+              <input class='form-control' type="text" name="url" placeholder="Opean sea url..." required>
+            </div>
+            <div class="col-md-12 mb-3">
+              <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Find">
+            </div>
+          </div>
+        </form>
+
+      </div>
+
+      <br>
+      <div class="find-wallet col-6">
+        <h1>Find NFTs by Wallet</h1>
+        <form method="get" action="/nft/getNFTs">
+          <div class="form-row">
+            <div class="col-md-12 mb-3">
+              <label>Find a NFTs by Wallet<span class="asterisk">*</span></label>
+              <input class='form-control' id="walletAddress" type="text" name="walletAddress"
+                placeholder="Wallet address..." required>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Find">
+              <button id="connect-button"><i class="fa-solid fa-wallet"></i></button>
+            </div>
+          </div>
+
+
+
+        </form>
+
+      </div>
+    </div>
+  
   </main>
 
   <footer>
     <%- include('../partials/footer'); %>
   </footer>
+  <script>
+    document.getElementById("connect-button").addEventListener('click', event => {
+      let account;
+      ethereum.request({ method: 'eth_requestAccounts' }).then(accounts => {
+        account = accounts[0];
+        if (account) {
+          console.log(account);
+          document.getElementById("walletAddress").value = account;
+        } else {
+          alert("Fail")
+        }
+        ethereum.request({ method: 'eth_getBalance', params: [account, 'latest'] }).then(result => {
+          console.log(result);
+        });
+      });
 
+
+    });
+  </script>
 </body>
 
 </html>
