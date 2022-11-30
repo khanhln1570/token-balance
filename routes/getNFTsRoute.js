@@ -107,11 +107,11 @@ router.get("/getNFTOpensea", async function (req, res) {
   if (urlOpensea !== undefined) {
     const splitUrl = urlOpensea.split("/");
     // Contract address
-    const address = splitUrl[5];
-    const tokenId = splitUrl[6]; 
+    const address = splitUrl[splitUrl.length-2];
+    const tokenId = splitUrl[splitUrl.length-1]; 
     // Alchemy URL
     let baseURL = "";
-    if (splitUrl[4] === "ethereum") {
+    if (splitUrl[splitUrl.length-3] === "ethereum") {
       baseURL = `https://eth-mainnet.g.alchemy.com/v2/YVMqyY1EhL0f281q52gtBw04p92ACOzA`;
     } else if (splitUrl[4] === "matic") {
       baseURL = `https://polygon-mainnet.g.alchemy.com/v2/uADTmcfw38hlAUu7m0vjyREqKFEOzjD_`;
