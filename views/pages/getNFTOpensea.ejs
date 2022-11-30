@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+            <link rel="stylesheet" href="../../style.css">
+    </header>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        li {
+            float: left;
+            padding: 5px;
+        }
+    </style>
+    <main>
+        <div class="jumbotron">
+            <h1>Find Specific NFT</h1>
+            <%if(!image) { %>
+                <form method="get" action="/nft/getNFTOpensea">
+                    <input type="text" name="url" placeholder="Opean sea url..." required>
+                    <input type="submit" value="Find">
+                </form>
+                <% } %>
+
+                    <br>
+                    <%if(image) { %>
+                        <img src=<%=image.media[0].gateway %> width=250 height=250 onclick="callZekeke(`<%=
+                            image.media[0].gateway %>`)">
+                            <% }else { %>
+                                <h1>Not found Image</h1>
+                                <% }%>
+        </div>
+        <script>
+            function callZekeke(url) {
+                window.parent.postMessage({
+                    message_type: 'IMAGE_SELECTED',
+                    url: url,
+                    mime: 'image/jpeg, image/png'
+                }, '*')
+                console.log(url)
+            }
+            // window.addEventListener("message", function (event) {
+            //         if (event.origin !== "http://localhost:8080")
+            //             return;
+            //         localStorage.setItem("url", event.data.url)
+            //         console.log(event.data);
+            //     });
+
+        </script>
+
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>
