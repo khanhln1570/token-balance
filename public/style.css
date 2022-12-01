@@ -1,0 +1,24 @@
+body {
+  padding-top: 50px;
+}
+
+#connect-button {
+  margin-left: auto;
+  display: block;
+}
+
+.asterisk {
+  color: red;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+  padding: 5px;
+}

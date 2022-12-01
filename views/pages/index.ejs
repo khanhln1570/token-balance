@@ -3,6 +3,7 @@
 
 <head>
   <%- include('../partials/head'); %>
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body class="container">
@@ -23,7 +24,13 @@
           <div class="find-token form-row">
             <div class="col-md-4 mb-3">
               <label>Blockchain<span class="asterisk">*</span></label>
-              <input class='form-control' type="text" name="chain" placeholder="eth or matic" required>
+              <select class="form-select form-control" aria-label="Default select example" name="chain" required>
+                <option value="">-- Blockchain --</option>
+                <option value="eth">Ethereum</option>
+                <option value="matic">Polygon</option>
+                <!-- <option value="3">Arbitrum</option>
+                <option value="3">Optimism</option> -->
+              </select>
             </div>
             <div class="col-md-4 mb-3">
               <label>Contract address<span class="asterisk">*</span></label>
@@ -41,16 +48,14 @@
           <div class="find-opensea form-row">
             <div class="col-md-12 mb-3">
               <label>Or use its Opensea URL<span class="asterisk">*</span></label>
-              <input class='form-control' type="text" name="url" placeholder="Opean sea url..." required>
+              <input class='form-control' type="text" name="url" placeholder="Opensea url..." required>
             </div>
             <div class="col-md-12 mb-3">
               <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Find">
             </div>
           </div>
         </form>
-
       </div>
-
       <br>
       <div class="find-wallet col-6">
         <h1>Find NFTs by Wallet</h1>
@@ -61,20 +66,15 @@
               <input class='form-control' id="walletAddress" type="text" name="walletAddress"
                 placeholder="Wallet address..." required>
             </div>
-
             <div class="col-md-12 mb-3">
               <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Find">
-              <button id="connect-button"><i class="fa-solid fa-wallet"></i></button>
+              <button id="connect-button" class="btn btn-outline-secondary"><i class="fa-solid fa-wallet"></i></button>
             </div>
           </div>
-
-
-
         </form>
-
       </div>
     </div>
-  
+
   </main>
 
   <footer>

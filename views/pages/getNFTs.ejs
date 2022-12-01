@@ -9,44 +9,13 @@
 
   <header>
     <%- include('../partials/header'); %>
-      <link rel="stylesheet" href="../../style.css">
+      <link rel="stylesheet" href="/style.css">
   </header>
-  <style>
-    ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
 
-    li {
-      float: left;
-      padding: 5px;
-    }
-  </style>
   <main>
     <div class="jumbotron">
       <h1>Find NFTs</h1>
-      
-      <script>
-        document.getElementById("connect-button").addEventListener('click', event => {
-          let account;
-          ethereum.request({ method: 'eth_requestAccounts' }).then(accounts => {
-            account = accounts[0];
-            if (account) {
-              console.log(account);
-              document.getElementById("walletAddress").value = account;
-            } else {
-              alert("Fail")
-            }
-            ethereum.request({ method: 'eth_getBalance', params: [account, 'latest'] }).then(result => {
-              console.log(result);
-            });
-          });
 
-
-        });
-      </script>
       <%if(!images) { %>
         <form method="get" action="/nft/getNFTs">
           <input id="walletAddress" type="text" name="walletAddress" placeholder="Wallet address..." required>
@@ -57,7 +26,8 @@
           <ul>
             <% images.imagesPolygon.forEach(function(image) { %>
               <li>
-                <img src=<%=image %> width=250 height=250 onclick="callZekeke(`<%= image %>`)">
+                <img src=<%=image %> width=250 height=250 onclick="callZekeke(`<%= image %>`)" data-toggle="modal"
+                  data-target=".bd-example-modal-sm">
               </li>
               <% }); %>
           </ul>
@@ -66,31 +36,19 @@
           <ul>
             <% images.imagesEth.forEach(function(image) { %>
               <li>
-                <img src=<%=image %> width=250 height=250 onclick="callZekeke(`<%= image %>`)">
+                <img src=<%=image %> width=250 height=250 onclick="callZekeke(`<%= image %>`)" data-toggle="modal"
+                  data-target=".bd-example-modal-sm">
               </li>
               <% }); %>
           </ul>
           <% }%>
 
     </div>
-    <script>
-      function callZekeke(url){
-        window.parent.postMessage({
-          message_type: 'IMAGE_SELECTED',
-          url: url,
-          mime: 'image/jpeg, image/png'
-        }, '*')
-        console.log(url)
-        alert(`Selected: ${url}`)
-      }
-      
-    </script>
   </main>
 
   <footer>
     <%- include('../partials/footer'); %>
   </footer>
-
 </body>
 
 </html>

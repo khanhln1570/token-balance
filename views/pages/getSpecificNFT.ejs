@@ -9,21 +9,9 @@
 
   <header>
     <%- include('../partials/header'); %>
-      <link rel="stylesheet" href="../../style.css">
+      <link rel="stylesheet" href="/style.css">
   </header>
-  <style>
-    ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
 
-    li {
-      float: left;
-      padding: 5px;
-    }
-  </style>
   <main>
     <div class="jumbotron">
       <h1>Find Specific NFT</h1>
@@ -38,29 +26,17 @@
 
           <br>
           <%if(image) { %>
-            <img src=<%=image.media[0].gateway %> width=250 height=250 onclick="callZekeke(`<%= image.media[0].gateway %>`)">
-            <% }else { %>
-              <h1>Not found Image</h1>
-              <% }%>
+            <img src=<%=image.media[0].gateway %> width=250 height=250 onclick="callZekeke(`<%= image.media[0].gateway
+              %>`)" data-toggle="modal" data-target=".bd-example-modal-sm">
+              <% }else { %>
+                <h1>Not found Image</h1>
+                <% }%>
 
     </div>
-    <script>
-      function callZekeke(url){
-        window.parent.postMessage({
-          message_type: 'IMAGE_SELECTED',
-          url: url,
-          mime: 'image/jpeg, image/png'
-        }, '*')
-        console.log(url)
-        alert(`Selected: ${url}`)
-      }
-    </script>
   </main>
-
   <footer>
     <%- include('../partials/footer'); %>
   </footer>
-
 </body>
 
 </html>
