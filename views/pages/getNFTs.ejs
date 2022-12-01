@@ -14,7 +14,7 @@
 
   <main>
     <div class="jumbotron">
-      <h1>Find NFTs</h1>
+      <h1>NFT LIST</h1>
 
       <%if(!images) { %>
         <form method="get" action="/nft/getNFTs">
@@ -22,26 +22,15 @@
           <input type="submit" value="Find">
         </form>
         <% }else {%>
-          <h2>Polygon chain</h2>
           <ul>
-            <% images.imagesPolygon.forEach(function(image) { %>
+            <% images.forEach(function(image) { %>
               <li>
                 <img src=<%=image %> width=250 height=250 onclick="callZekeke(`<%= image %>`)" data-toggle="modal"
                   data-target=".bd-example-modal-sm">
               </li>
               <% }); %>
           </ul>
-          <br>
-          <h2>Ethereum chain</h2>
-          <ul>
-            <% images.imagesEth.forEach(function(image) { %>
-              <li>
-                <img src=<%=image %> width=250 height=250 onclick="callZekeke(`<%= image %>`)" data-toggle="modal"
-                  data-target=".bd-example-modal-sm">
-              </li>
-              <% }); %>
-          </ul>
-          <% }%>
+         <%}%>
 
     </div>
   </main>

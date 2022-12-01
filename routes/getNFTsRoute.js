@@ -6,46 +6,62 @@ router.get("/getNFTs", async function (req, res) {
   // Wallet address
   const address = req.query.walletAddress;
   if (address !== undefined) {
-    let imagesPolygon = [];
-    let imagesEth = [];
-    const images = {};
+    let images = [];
 
     const excludeFilters = ["SPAM"];
     // Alchemy URL
     const baseURLEthereum = `https://eth-mainnet.g.alchemy.com/v2/YVMqyY1EhL0f281q52gtBw04p92ACOzA`;
     const baseURLPolygon = `https://polygon-mainnet.g.alchemy.com/v2/uADTmcfw38hlAUu7m0vjyREqKFEOzjD_`;
+    const baseURLArbitrum = `https://arb-mainnet.g.alchemy.com/v2/3YPCXZqc3Y3DAsEGV6ERHaKPToOBugYk`;
+    const baseURLOptimism = `https://opt-mainnet.g.alchemy.com/v2/S47UuB5EDzwZpF8x_E9HmMIjrX3nFFaP`;
     const urlEthereum = `${baseURLEthereum}/getNFTs/?owner=${address}&excludeFilters=${excludeFilters}`;
     const urlPolygon = `${baseURLPolygon}/getNFTs/?owner=${address}&excludeFilters=${excludeFilters}`;
+    const urlArbitrum = `${baseURLArbitrum}/getNFTs/?owner=${address}&excludeFilters=${excludeFilters}`;
+    const urlOptimism = `${baseURLOptimism}/getNFTs/?owner=${address}&excludeFilters=${excludeFilters}`;
 
-    const configEthereum = {
-      method: "get",
-      url: urlEthereum,
-    };
+    const sources = [
+      {
+        method: "get",
+        url: urlEthereum,
+      },
+      {
+        method: "get",
+        url: urlPolygon,
+      },
+      {
+        method: "get",
+        url: urlArbitrum,
+      },
+      {
+        method: "get",
+        url: urlOptimism,
+      },
+    ];
+    const tasks = sources.map(axios);
 
-    const configPolygon = {
-      method: "get",
-      url: urlPolygon,
-    };
+    const responses = await Promise.allSettled(tasks);
 
-    // Make the request and print the formatted response:
-    await axios(configEthereum)
-      .then((response) => {
-        const data = response["data"]["ownedNfts"];
+    let results = responses.map((response) => {
+      const data = response.value.data;
+      return data;
+    });
 
-        imagesEth = data.map((contract) => contract.media[0].gateway);
-        images.imagesEth = imagesEth;
-        // console.log(imagesEth);
-      })
-      .catch((error) => console.log("error", error));
+    const resultsFilterNull = results.filter(
+      (nfts) => nfts.ownedNfts.length > 0
+    );
 
-    await axios(configPolygon)
-      .then((response) => {
-        const data = response["data"]["ownedNfts"];
-        imagesPolygon = data.map((contract) => contract.media[0].gateway);
-        images.imagesPolygon = imagesPolygon;
-      })
-      .catch((error) => console.log("error", error));
-
+    // console.log(resultsFilterNull);
+    const ownedNfts = resultsFilterNull.map((ownedNfts) => {
+      return ownedNfts.ownedNfts.map((contract) => contract.media[0].gateway);
+    });
+    for (let index = 0; index < ownedNfts.length; index++) {
+      const ownedNft = ownedNfts[index];
+      for (let index = 0; index < ownedNft.length; index++) {
+        const element = ownedNft[index];
+        images.push(element)
+      }
+    }
+    // console.log(images);
     if (images.length !== 0) {
       res.render("pages/getNFTs", {
         images: images,
@@ -70,11 +86,24 @@ router.get("/getSpecific", async function (req, res) {
   if (address !== undefined) {
     // Alchemy URL
     let baseURL = "";
-    if (chain === "eth") {
-      baseURL = `https://eth-mainnet.g.alchemy.com/v2/YVMqyY1EhL0f281q52gtBw04p92ACOzA`;
-    } else {
-      baseURL = `https://polygon-mainnet.g.alchemy.com/v2/uADTmcfw38hlAUu7m0vjyREqKFEOzjD_`;
+    switch (chain) {
+      case "eth":
+        baseURL = `https://eth-mainnet.g.alchemy.com/v2/YVMqyY1EhL0f281q52gtBw04p92ACOzA`;
+        break;
+      case "matic":
+        baseURL = `https://polygon-mainnet.g.alchemy.com/v2/uADTmcfw38hlAUu7m0vjyREqKFEOzjD_`;
+        break;
+      case "arbitrum":
+        baseURL = `https://arb-mainnet.g.alchemy.com/v2/3YPCXZqc3Y3DAsEGV6ERHaKPToOBugYk`;
+        break;
+      case "optimism":
+        baseURL = `https://opt-mainnet.g.alchemy.com/v2/S47UuB5EDzwZpF8x_E9HmMIjrX3nFFaP`;
+        break;
+      default:
+        baseURL = `https://eth-mainnet.g.alchemy.com/v2/YVMqyY1EhL0f281q52gtBw04p92ACOzA`;
+        break;
     }
+
     const url = `${baseURL}/getNFTMetadata?contractAddress=${address}&tokenId=${tokenId}`;
 
     const config = {
@@ -107,11 +136,11 @@ router.get("/getNFTOpensea", async function (req, res) {
   if (urlOpensea !== undefined) {
     const splitUrl = urlOpensea.split("/");
     // Contract address
-    const address = splitUrl[splitUrl.length-2];
-    const tokenId = splitUrl[splitUrl.length-1]; 
+    const address = splitUrl[splitUrl.length - 2];
+    const tokenId = splitUrl[splitUrl.length - 1];
     // Alchemy URL
     let baseURL = "";
-    if (splitUrl[splitUrl.length-3] === "ethereum") {
+    if (splitUrl[splitUrl.length - 3] === "ethereum") {
       baseURL = `https://eth-mainnet.g.alchemy.com/v2/YVMqyY1EhL0f281q52gtBw04p92ACOzA`;
     } else if (splitUrl[4] === "matic") {
       baseURL = `https://polygon-mainnet.g.alchemy.com/v2/uADTmcfw38hlAUu7m0vjyREqKFEOzjD_`;
