@@ -23,13 +23,16 @@
           <div class="generate-qr form-row">
             <div class="col-md-12 mb-3">
               <label>URL<span class="asterisk">*</span></label>
-              <input id="qr-url"class='form-control' type="text" name="url" value="<%=url ? url : ""%>" placeholder="Input something..." required>
+              <input id="qr-url" class='form-control' type="text" name="url" value="<%=url ? url : ""%>"
+                placeholder="Input something..." required>
               <% if(message) {%>
                 <script>
-                    document.getElementById("qr-url").style.border = "2px solid red";
+                  document.getElementById("qr-url").style.border = "2px solid red";
                 </script>
-              <label style="color: red;"><%=message%></label>
-              <%}%>
+                <label style="color: red;">
+                  <%=message%>
+                </label>
+                <%}%>
             </div>
             <div class="col-md-12 mb-3">
               <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Generate">
@@ -42,10 +45,17 @@
         <div class="qr-area">
           <div class="qr-image">
             <% if(image) {%>
+              <script>
+                window.parent.postMessage({
+                  message_type: 'IMAGE_SELECTED',
+                  url: `<%=image%>`,
+                  mime: 'image/png'
+                }, '*');
+              </script>
               <img src="<%=image%>" onclick="callZekeke(`<%= image %>`)">
               <% } else {%>
                 <p></p>
-              <%}%>
+                <%}%>
           </div>
 
         </div>
