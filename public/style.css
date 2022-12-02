@@ -23,10 +23,25 @@ li {
   padding: 5px;
 }
 
-img:hover {
+img.nft:hover {
   border: 5px solid lightseagreen;
   border-radius: 5px;
 }
-h1{
+
+h1 {
   text-align: center;
+}
+.qr-area{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.qr-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: green 1px solid;
+  width: 200px;
+  height: 200px;
+  padding: 5px;
 }

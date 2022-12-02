@@ -25,7 +25,7 @@
           <ul>
             <% images.forEach(function(image) { %>
               <li>
-                <img src=<%=image %> width=250 height=250 onclick="callZekeke(`<%= image %>`)" data-toggle="modal"
+                <img class="nft" src=<%=image %> width=250 height=250 onclick="callZekeke(`<%= image %>`)" data-toggle="modal"
                   data-target=".bd-example-modal-sm">
               </li>
               <% }); %>

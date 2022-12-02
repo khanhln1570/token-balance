@@ -24,7 +24,7 @@
 
           <br>
           <%if(image) { %>
-            <img src=<%=image.media[0].gateway %> width=250 height=250 onclick="callZekeke(`<%= image.media[0].gateway
+            <img class="nft" src=<%=image.media[0].gateway %> width=250 height=250 onclick="callZekeke(`<%= image.media[0].gateway
               %>`)" data-toggle="modal" data-target=".bd-example-modal-sm">
               <% }else { %>
                 <h1>Not found Image</h1>

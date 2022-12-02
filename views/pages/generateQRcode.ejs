@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="container">
+
+  <main>
+    <div>
+      <p style="text-align: center;">
+        Use our NFT finder, below, to find your NFTs on the Ethereum and Polygon blockchains and then use them to
+        customize your physical products. The products will then be manufactured on-demand using your selected NFT
+        images and will be on their way to you in 3 - 4 business days.
+      </p>
+    </div>
+    <div class="jumbotron row">
+
+      <div class="find-specific col-md-6 col-sm-12">
+        <h1>Generate QR Code</h1>
+        <br>
+        <form method="post" action="/qr/generate">
+          <div class="generate-qr form-row">
+            <div class="col-md-12 mb-3">
+              <label>URL<span class="asterisk">*</span></label>
+              <input class='form-control' type="text" name="url" value="<%=url ? url : ""%>" placeholder="Input something..." required>
+            </div>
+            <div class="col-md-12 mb-3">
+              <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Generate">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <h1 class="">QR Code</h1>
+        <div class="qr-area">
+          <div class="qr-image">
+            <% if(image) {%>
+              <img src="<%=image%>" onclick="callZekeke(`<%= image %>`)">
+              <% } else {%>
+                <p></p>
+              <%}%>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <%- include('../partials/footer'); %>
+  </footer>
+
+</body>
+
+</html>
