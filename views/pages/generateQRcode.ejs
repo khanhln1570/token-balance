@@ -23,7 +23,13 @@
           <div class="generate-qr form-row">
             <div class="col-md-12 mb-3">
               <label>URL<span class="asterisk">*</span></label>
-              <input class='form-control' type="text" name="url" value="<%=url ? url : ""%>" placeholder="Input something..." required>
+              <input id="qr-url"class='form-control' type="text" name="url" value="<%=url ? url : ""%>" placeholder="Input something..." required>
+              <% if(message) {%>
+                <script>
+                    document.getElementById("qr-url").style.border = "2px solid red";
+                </script>
+              <label style="color: red;"><%=message%></label>
+              <%}%>
             </div>
             <div class="col-md-12 mb-3">
               <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Generate">
