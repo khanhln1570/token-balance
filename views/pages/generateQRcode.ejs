@@ -16,7 +16,7 @@
     </div>
     <div class="jumbotron row">
 
-      <div class="find-specific col-md-6 col-sm-12">
+      <div class="find-specific col-md-12 col-sm-12">
         <h1>Generate QR Code</h1>
         <br>
         <form method="post" action="/qr/generate">
@@ -38,28 +38,30 @@
               <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Generate">
             </div>
           </div>
+          <% if(image) {%>
+            <script>
+              console.log(`<%=image%>`)
+              window.parent.postMessage({
+                message_type: 'IMAGE_SELECTED',
+                url: `<%=image%>`,
+                mime: 'image/png'
+              }, '*');
+            </script>
+            
+            <% } else {%>
+              <p></p>
+              <%}%>
         </form>
       </div>
-      <div class="col-md-6 col-sm-12">
+      <!-- <div class="col-md-6 col-sm-12">
         <h1 class="">QR Code</h1>
         <div class="qr-area">
           <div class="qr-image">
-            <% if(image) {%>
-              <script>
-                window.parent.postMessage({
-                  message_type: 'IMAGE_SELECTED',
-                  url: `<%=image%>`,
-                  mime: 'image/png'
-                }, '*');
-              </script>
-              <img src="<%=image%>" onclick="callZekeke(`<%= image %>`)">
-              <% } else {%>
-                <p></p>
-                <%}%>
+            
           </div>
 
         </div>
-      </div>
+      </div> -->
     </div>
 
   </main>
