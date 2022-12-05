@@ -140,10 +140,23 @@ router.get("/getNFTOpensea", async function (req, res) {
     const tokenId = splitUrl[splitUrl.length - 1];
     // Alchemy URL
     let baseURL = "";
-    if (splitUrl[splitUrl.length - 3] === "ethereum") {
-      baseURL = `https://eth-mainnet.g.alchemy.com/v2/YVMqyY1EhL0f281q52gtBw04p92ACOzA`;
-    } else if (splitUrl[4] === "matic") {
-      baseURL = `https://polygon-mainnet.g.alchemy.com/v2/uADTmcfw38hlAUu7m0vjyREqKFEOzjD_`;
+    
+    switch (splitUrl[splitUrl.length - 3]) {
+      case "eth":
+        baseURL = `https://eth-mainnet.g.alchemy.com/v2/YVMqyY1EhL0f281q52gtBw04p92ACOzA`;
+        break;
+      case "matic":
+        baseURL = `https://polygon-mainnet.g.alchemy.com/v2/uADTmcfw38hlAUu7m0vjyREqKFEOzjD_`;
+        break;
+      case "arbitrum":
+        baseURL = `https://arb-mainnet.g.alchemy.com/v2/3YPCXZqc3Y3DAsEGV6ERHaKPToOBugYk`;
+        break;
+      case "optimism":
+        baseURL = `https://opt-mainnet.g.alchemy.com/v2/S47UuB5EDzwZpF8x_E9HmMIjrX3nFFaP`;
+        break;
+      default:
+        baseURL = `https://eth-mainnet.g.alchemy.com/v2/YVMqyY1EhL0f281q52gtBw04p92ACOzA`;
+        break;
     }
     const url = `${baseURL}/getNFTMetadata?contractAddress=${address}&tokenId=${tokenId}`;
 
