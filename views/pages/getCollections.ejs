@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+  <header>
+    <%- include('../partials/header'); %>
+      <link rel="stylesheet" href="/style.css">
+  </header>
+
+  <main>
+    <div class="jumbotron">
+      <h1>Find Collections By Name</h1>
+      <br>
+      <%if(!collections) { %>
+        <h1>Not Found Any Collection</h1>
+        <% }else {%>
+          <div class="wrap row">
+            <% collections.forEach(function(collection) { %>
+              
+                <div class="card col-md-3 col-sm-6">
+                  <img src=<%=collection.logo%> class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <%=collection.name%>
+                    </h5>
+                    <p class="card-text">
+                      Verified: <%=collection.verified%>
+                    </p>
+                    <a href="#" class="btn btn-primary">Explore</a>
+                  </div>
+                </div>
+              
+
+
+              <% }); %>
+          </div>
+          <%}%>
+    </div>
+
+
+  </main>
+
+  <footer>
+    <%- include('../partials/footer'); %>
+  </footer>
+
+</body>
+
+</html>

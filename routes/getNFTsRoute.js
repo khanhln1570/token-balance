@@ -58,7 +58,7 @@ router.get("/getNFTs", async function (req, res) {
       const ownedNft = ownedNfts[index];
       for (let index = 0; index < ownedNft.length; index++) {
         const element = ownedNft[index];
-        images.push(element)
+        images.push(element);
       }
     }
     // console.log(images);
@@ -140,7 +140,7 @@ router.get("/getNFTOpensea", async function (req, res) {
     const tokenId = splitUrl[splitUrl.length - 1];
     // Alchemy URL
     let baseURL = "";
-    
+
     switch (splitUrl[splitUrl.length - 3]) {
       case "eth":
         baseURL = `https://eth-mainnet.g.alchemy.com/v2/YVMqyY1EhL0f281q52gtBw04p92ACOzA`;
@@ -182,4 +182,37 @@ router.get("/getNFTOpensea", async function (req, res) {
   }
 });
 
+router.get("/getCollections", async function (req, res) {
+  const name = req.query.nameCollection;
+  const APIKEY = "rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4";
+
+  if (name) {
+    let url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/collections/search?name=${name}`;
+    const config = {
+      method: "get",
+      url: url,
+      headers: {
+        Authorization: `Bearer ${APIKEY}`,
+      },
+    };
+
+    // Make the request and print the formatted response:
+    await axios(config)
+      .then((response) => {
+        const data = response["data"]["data"];
+        const collections = data.map((collection) => {
+          collection.logo = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/${collection.logo}?apiKey=${APIKEY}`;
+          return collection;
+        });
+        res.render("pages/getCollections", {
+          collections: collections,
+        });
+      })
+      .catch((error) => console.log("error", error));
+  } else {
+    res.render("pages/getCollections", {
+      collections: null,
+    });
+  }
+});
 module.exports = router;

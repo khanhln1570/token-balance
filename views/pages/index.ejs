@@ -58,17 +58,32 @@
       </div>
       <br>
       <div class="find-wallet col-md-6 col-sm-12">
-        <h1>Find NFTs by Wallet</h1>
+        <h1>Find NFTs By Wallet</h1>
         <form method="get" action="/nft/getNFTs">
           <div class="form-row">
             <div class="col-md-12 mb-3">
-              <label>Find a NFTs by Wallet<span class="asterisk">*</span></label>
+              <label>Find a NFTs By Wallet<span class="asterisk">*</span></label>
               <input class='form-control' id="walletAddress" type="text" name="walletAddress"
                 placeholder="Wallet address..." required>
             </div>
             <div class="col-md-12 mb-3">
               <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Find">
               <button id="connect-button" class="btn btn-outline-secondary"><i class="fa-solid fa-wallet"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="find-collections col-md-6 col-sm-12">
+        <h1>Find Collections By Name</h1>
+        <form method="get" action="/nft/getCollections">
+          <div class="form-row">
+            <div class="col-md-12 mb-3">
+              <label>Find by name<span class="asterisk">*</span></label>
+              <input class='form-control' id="nameCollection" type="text" name="nameCollection"
+                placeholder="Collection name..." required>
+            </div>
+            <div class="col-md-12 mb-3">
+              <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Find">
             </div>
           </div>
         </form>

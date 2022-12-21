@@ -45,3 +45,25 @@ h1 {
   height: 200px;
   padding: 5px;
 }
+
+.wrap .card {
+  width: 100%;
+  padding: 0;
+  /* margin-left: 1px;
+  margin-right: 5px; */
+  margin-bottom: 20px;
+  transition: 0.2s;
+}
+
+.wrap .card:hover {
+  transform: scale(1.05);
+}
+
+.wrap .card img {
+  width: 100%;
+}
+
+/* .wrap{
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr)); 
+} */
