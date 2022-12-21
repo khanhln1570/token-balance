@@ -215,4 +215,54 @@ router.get("/getCollections", async function (req, res) {
     });
   }
 });
+
+router.get("/detailCollection/:collectionId", async function (req, res) {
+  const collectionId = req.params.collectionId;
+  const tokenId = req.query.tokenId;
+  const contractAddress = req.query.contractAddress;
+  const APIKEY = "rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4";
+
+  if (collectionId) {
+    let url;
+    if (tokenId) {
+      url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/assets?contract_address=${contractAddress}&token_id=${tokenId}`;
+    } else {
+      url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/assets?collection_id=${collectionId}`;
+
+    }
+    const config = {
+      method: "get",
+      url: url,
+      headers: {
+        Authorization: `Bearer ${APIKEY}`,
+      },
+    };
+
+    // Make the request and print the formatted response:
+    await axios(config)
+      .then((response) => {
+        const data = response["data"]["data"];
+        // console.log(data);
+        const collections = data.map((collection) => {
+          // collection.token_id = parseInt(collection.token_id);
+          collection.image_url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/${collection.image_url}?apiKey=${APIKEY}`;
+          return collection;
+        });
+
+        // console.log(collections);
+        res.render("pages/detailCollection", {
+          collections: collections,
+          contractAddress: contractAddress,
+          collectionId: collectionId
+
+        });
+      })
+      .catch((error) => console.log("error", error));
+  } else {
+    res.render("pages/detailCollection", {
+      collections: null,
+    });
+  }
+});
+
 module.exports = router;
