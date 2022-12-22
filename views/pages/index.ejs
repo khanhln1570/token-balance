@@ -75,12 +75,12 @@
       </div>
       <div class="find-collections col-md-6 col-sm-12">
         <h1>Find Collections By Name</h1>
-        <form method="get" action="/nft/getCollections">
-          <div class="form-row">
+        <form autocomplete="off" method="get" action="/nft/getCollections">
+          <div class="autocomplete form-row">
             <div class="col-md-12 mb-3">
               <label>Find by name<span class="asterisk">*</span></label>
               <input class='form-control' id="nameCollection" type="text" name="nameCollection"
-                placeholder="Collection name..." required>
+                placeholder="Collection name..." oninput="apiCall()" required>
             </div>
             <div class="col-md-12 mb-3">
               <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Find">
@@ -89,6 +89,10 @@
         </form>
       </div>
     </div>
+
+
+
+
   </main>
 
   <footer>
@@ -113,6 +117,7 @@
 
     });
   </script>
+
 </body>
 
 </html>
