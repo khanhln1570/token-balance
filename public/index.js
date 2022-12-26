@@ -15,15 +15,14 @@ function callZekeke(url) {
 //         localStorage.setItem("url", event.data.url)
 //         console.log(event.data);
 //     });
-let countries = []
+let collections = [];
 async function apiCall() {
   let input = document.getElementById("nameCollection").value;
   setTimeout(call, 500, input);
-
-  async function call(input) {
+  function call(input) {
     if (input.length >= 1) {
       const APIKEY = "rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4";
-
+     
       let url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/collections/search?apiKey=${APIKEY}&name=${input}`;
 
       fetch(url)
@@ -31,9 +30,14 @@ async function apiCall() {
         .then((data) => {
           const result = data.data;
 
-          countries = result.map((collecion) => collecion.name);
+          collections = result.map((collection) => {
+            return { name: collection.name, logo: `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/${collection.logo}?apiKey=${APIKEY}` };
+          });
+          // autocomplete(document.getElementById("nameCollection"), collections);
+          if (collections.length !== 0) {
+            autocomplete(document.getElementById("nameCollection"), collections);
+          }
         });
-      autocomplete(document.getElementById("nameCollection"), countries);
     }
   }
   
@@ -63,25 +67,27 @@ function autocomplete(inp, arr) {
     this.parentNode.appendChild(a);
     /*for each item in the array...*/
     for (i = 0; i < arr.length; i++) {
-      /*check if the item starts with the same letters as the text field value:*/
-      if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-        /*create a DIV element for each matching element:*/
-        b = document.createElement("DIV");
-        /*make the matching letters bold:*/
-        b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-        b.innerHTML += arr[i].substr(val.length);
-        /*insert a input field that will hold the current array item's value:*/
-        b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-        /*execute a function when someone clicks on the item value (DIV element):*/
-        b.addEventListener("click", function (e) {
-          /*insert the value for the autocomplete text field:*/
-          inp.value = this.getElementsByTagName("input")[0].value;
-          /*close the list of autocompleted values,
+      // if (arr[i].replace(/\s/g,'').toLowerCase().includes(val.replace(/\s/g,'').toLowerCase()) ) {
+     
+      /*create a DIV element for each matching element:*/
+      b = document.createElement("DIV");
+      /*make the matching letters bold:*/
+      
+      b.innerHTML = `<img style=" border-radius: 50%;width: 50px;height: 50px; margin-right: 20px" src=${arr[i].logo}>`
+      b.innerHTML += "<strong>" + arr[i].name + "</strong>";
+      /*insert a input field that will hold the current array item's value:*/
+      b.innerHTML += "<input type='hidden' value='" + arr[i].name + "'>";
+      /*execute a function when someone clicks on the item value (DIV element):*/
+      b.addEventListener("click", function (e) {
+        /*insert the value for the autocomplete text field:*/
+        inp.value = this.getElementsByTagName("input")[0].value;
+        /*close the list of autocompleted values,
                   (or any other open lists of autocompleted values:*/
-          closeAllLists();
-        });
-        a.appendChild(b);
-      }
+
+        closeAllLists();
+      });
+      a.appendChild(b);
+      // }
     }
   });
   /*execute a function presses a key on the keyboard:*/

@@ -21,9 +21,9 @@
         <% }else {%>
           <div class="wrap row">
             <% collections.forEach(function(collection) { %>
-              
-                <div class="card col-md-3 col-sm-6">
-                  <img src=<%=collection.logo%> class="card-img-top" alt="...">
+
+              <div class="card col-md-3 col-sm-6">
+                <img src=<%=collection.logo%> class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">
                       <%=collection.name%>
@@ -31,11 +31,12 @@
                     <p class="card-text">
                       Verified: <%=collection.verified%>
                     </p>
-                    
-                    <a href="/nft/detailCollection/<%=collection.id%>?contractAddress=<%=collection.contracts[0]%>"  class="btn btn-primary">Explore</a>
+
+                    <a href="/nft/detailCollection/<%=collection.id%>?contractAddress=<%=collection.contracts[0]%>"
+                      class="btn btn-primary">Explore</a>
                   </div>
-                </div>
-              
+              </div>
+
 
 
               <% }); %>
