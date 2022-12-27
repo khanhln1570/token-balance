@@ -14,25 +14,39 @@
 
   <main>
     <div class="jumbotron">
-      <h1>NFT LIST</h1>
+      <h1>Find NFTs By Wallet</h1>
+      <form method="get" action="/nft/getNFTs">
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label>Find a NFTs By Wallet<span class="asterisk">*</span></label>
+            <input class='form-control' id="walletAddress" type="text" name="walletAddress"
+              placeholder="Wallet address..." required>
+          </div>
+          <div class="col-md-12 mb-3">
+            <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Find">
+            <button id="connect-button" class="btn btn-outline-secondary"><i class="fa-solid fa-wallet"></i></button>
+          </div>
+        </div>
+      </form>
 
-      <%if(!images) { %>
-        <form method="get" action="/nft/getNFTs">
-          <input id="walletAddress" type="text" name="walletAddress" placeholder="Wallet address..." required>
-          <input type="submit" value="Find">
-        </form>
-        <% }else {%>
-          <ul>
-            <% images.forEach(function(image) { %>
-              <li>
-                <img class="nft" src=<%=image %> width=250 height=250 onclick="callZekeke(`<%= image %>`)" data-toggle="modal"
-                  data-target=".bd-example-modal-sm">
-              </li>
-              <% }); %>
-          </ul>
-         <%}%>
-
+      <%if(images) { %>
+        <ul>
+          <% images.forEach(function(image) { %>
+            <li>
+              <img class="nft" src=<%=image %> width=250 height=250 onclick="callZekeke(`<%= image %>`)"
+                data-toggle="modal"
+                data-target=".bd-example-modal-sm">
+            </li>
+            <% }); %>
+        </ul>
+        <% } %>
+          <%if(message) { %>
+            <h2>
+              <%=message %>
+            </h2>
+            <% } %>
     </div>
+
   </main>
 
   <footer>

@@ -9,35 +9,42 @@
 
   <header>
     <%- include('../partials/header'); %>
-    <link rel="stylesheet" href="/style.css">
+      <link rel="stylesheet" href="/style.css">
   </header>
- 
+
   <main>
     <div class="jumbotron">
       <h1>Find Specific NFT by Opensea</h1>
-      <%if(!image) { %>
-        <form method="get" action="/nft/getNFTOpensea">
-          <input type="text" name="url" placeholder="Opean sea url..." required>
-          <input type="submit" value="Find">
-        </form>
-        <% } %>
+      <form method="get" action="/nft/getNFTOpensea">
+        <div class="find-opensea form-row">
+          <div class="col-md-12 mb-3">
+            <label>Or use its Opensea URL<span class="asterisk">*</span></label>
+            <input class='form-control' type="text" name="url" placeholder="Opensea url..." required>
+          </div>
+          <div class="col-md-12 mb-3">
+            <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Find">
+          </div>
+        </div>
+      </form>
 
-          <br>
-          <%if(image) { %>
-            <img class="nft" src=<%=image.media[0].gateway %> width=250 height=250 onclick="callZekeke(`<%= image.media[0].gateway
-              %>`)" data-toggle="modal" data-target=".bd-example-modal-sm">
-              <% }else { %>
-                <h1>Not found Image</h1>
-                <% }%>
+      <%if(image) { %>
+        <img class="nft" src=<%=image.media[0].gateway %> width=250 height=250 onclick="callZekeke(`<%=
+          image.media[0].gateway %>`)" data-toggle="modal" data-target=".bd-example-modal-sm">
+          <% }  %>
+          <%if(message) { %>
+            <h2>
+              <%=message %>
+            </h2>
+            <% } %>
     </div>
-  
+
 
   </main>
 
   <footer>
     <%- include('../partials/footer'); %>
   </footer>
-  
+
 </body>
 
 </html>

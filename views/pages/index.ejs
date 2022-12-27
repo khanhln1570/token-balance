@@ -18,7 +18,7 @@
     </div>
     <div class="jumbotron row">
 
-      <div class="find-specific col-md-6 col-sm-12">
+      <!-- <div class="find-specific col-md-6 col-sm-12">
         <h1>Find Specific NFT</h1>
         <form method="get" action="/nft/getSpecific">
           <div class="find-token form-row">
@@ -87,7 +87,30 @@
             </div>
           </div>
         </form>
+      </div> -->
+
+      <div class="col-md-12">
+        <h1>NFT Finder</h1>
+        <div class="row">
+         
+          <div class="col-4">
+
+          </div>
+          <div class="col-md-4">
+            
+            <button onclick="location.href = '/nft/getNFTs';" type="button" class="btn btn-outline-info btn-md btn-block"><i class="fa-solid fa-wallet"></i> By Wallet</button>
+            <button onclick="location.href = '/nft/getCollections';" type="button" class="btn btn-outline-info btn-md btn-block"><i class="fa-solid fa-th" aria-hidden="true"></i> By Collection</button>
+            <button onclick="location.href = '/nft/getSpecific';"type="button" class="btn btn-outline-info btn-md btn-block"><i class="fa-solid fa-list-alt" aria-hidden="true"></i> By Contract</button>
+            <button onclick="location.href = '/nft/getNFTOpensea';" type="button" class="btn btn-outline-info btn-md btn-block"><i class="fa-solid fa-link" aria-hidden="true"></i> By Opensea URL</button>
+          </div>
+          <div class="col-4">
+
+          </div>
+          
+        </div>
+
       </div>
+
     </div>
 
 

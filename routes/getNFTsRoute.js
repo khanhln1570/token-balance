@@ -65,11 +65,18 @@ router.get("/getNFTs", async function (req, res) {
     if (images.length !== 0) {
       res.render("pages/getNFTs", {
         images: images,
+        message: null
+      });
+    }else {
+      res.render("pages/getNFTs", {
+        images: null,
+        message: "NOT FOUND"
       });
     }
   } else {
     res.render("pages/getNFTs", {
       images: null,
+      message: null
     });
   }
 });
@@ -116,14 +123,22 @@ router.get("/getSpecific", async function (req, res) {
       .then((response) => {
         const data = response["data"];
         // res.status(200).json({ok: true, data: data})
+        if (!data) {
+          res.render("pages/getSpecificNFT", {
+            image: null,
+            message: null
+          });
+        }
         res.render("pages/getSpecificNFT", {
           image: data,
+          message: null
         });
       })
       .catch((error) => console.log("error", error));
   } else {
     res.render("pages/getSpecificNFT", {
       image: null,
+      message: null
     });
   }
 });
@@ -170,14 +185,22 @@ router.get("/getNFTOpensea", async function (req, res) {
       .then((response) => {
         const data = response["data"];
         // res.status(200).json({ok: true, data: data})
+        if (!data) {
+          res.render("pages/getNFTOpensea", {
+            image: null,
+            message: "NOT FOUND"
+          });
+        }
         res.render("pages/getNFTOpensea", {
           image: data,
+          message: null
         });
       })
       .catch((error) => console.log("error", error));
   } else {
     res.render("pages/getNFTOpensea", {
       image: null,
+      message: null
     });
   }
 });
@@ -204,14 +227,22 @@ router.get("/getCollections", async function (req, res) {
           collection.logo = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/${collection.logo}?apiKey=${APIKEY}`;
           return collection;
         });
+        if (!collections) {
+          res.render("pages/getCollections", {
+            collections: null,
+            message: null
+          });
+        }
         res.render("pages/getCollections", {
           collections: collections,
+          message: null
         });
       })
       .catch((error) => console.log("error", error));
   } else {
     res.render("pages/getCollections", {
       collections: null,
+      message: null
     });
   }
 });
@@ -248,19 +279,27 @@ router.get("/detailCollection/:collectionId", async function (req, res) {
           collection.image_url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/${collection.image_url}?apiKey=${APIKEY}`;
           return collection;
         });
-
+        if (!collections) {
+          res.render("pages/detailCollection", {
+            collections: null,
+            contractAddress: contractAddress,
+            collectionId: collectionId,
+            message: "NOT FOUND"
+          });
+        }
         // console.log(collections);
         res.render("pages/detailCollection", {
           collections: collections,
           contractAddress: contractAddress,
-          collectionId: collectionId
-
+          collectionId: collectionId,
+          message: null
         });
       })
       .catch((error) => console.log("error", error));
   } else {
     res.render("pages/detailCollection", {
       collections: null,
+      message: null
     });
   }
 });
