@@ -104,6 +104,9 @@ input[type=submit] {
   top: 100%;
   left: 0;
   right: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 300px;
 }
 
 .autocomplete-items div {
@@ -111,6 +114,7 @@ input[type=submit] {
   cursor: pointer;
   background-color: #fff; 
   border-bottom: 1px solid #d4d4d4; 
+
 }
 
 /*when hovering an item:*/
