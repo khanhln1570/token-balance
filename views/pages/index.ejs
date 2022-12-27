@@ -121,25 +121,6 @@
   <footer>
     <%- include('../partials/footer'); %>
   </footer>
-  <script>
-    document.getElementById("connect-button").addEventListener('click', event => {
-      let account;
-      ethereum.request({ method: 'eth_requestAccounts' }).then(accounts => {
-        account = accounts[0];
-        if (account) {
-          console.log(account);
-          document.getElementById("walletAddress").value = account;
-        } else {
-          alert("Fail")
-        }
-        ethereum.request({ method: 'eth_getBalance', params: [account, 'latest'] }).then(result => {
-          console.log(result);
-        });
-      });
-
-
-    });
-  </script>
 
 </body>
 

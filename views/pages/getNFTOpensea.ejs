@@ -30,12 +30,12 @@
       <%if(image) { %>
         <img class="nft" src=<%=image.media[0].gateway %> width=250 height=250 onclick="callZekeke(`<%=
           image.media[0].gateway %>`)" data-toggle="modal" data-target=".bd-example-modal-sm">
-          <% }  %>
-          <%if(message) { %>
-            <h2>
-              <%=message %>
-            </h2>
-            <% } %>
+          <% } %>
+            <%if(message) { %>
+              <h2>
+                <%=message %>
+              </h2>
+              <% } %>
     </div>
 
 
