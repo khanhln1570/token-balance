@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.7.1/dist/umd/index.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
   </header>
-  <button onclick="connectWC()">Connect Wallet Connect</button>
+ 
 
   <script type="text/javascript">
     var account;
@@ -105,25 +105,7 @@
     </div>
 
   </main>
-  <!-- <script>
-    document.getElementById("connect-button").addEventListener('click', event => {
-      let account;
-      ethereum.request({ method: 'eth_requestAccounts' }).then(accounts => {
-        account = accounts[0];
-        if (account) {
-          console.log(account);
-          document.getElementById("walletAddress").value = account;
-        } else {
-          alert("Fail")
-        }
-        ethereum.request({ method: 'eth_getBalance', params: [account, 'latest'] }).then(result => {
-          console.log(result);
-        });
-      });
-
-
-    });
-  </script> -->
+ 
   <footer>
     <%- include('../partials/footer'); %>
   </footer>
