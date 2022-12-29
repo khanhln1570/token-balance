@@ -23,7 +23,7 @@ async function apiCall() {
     if (input.length >= 1) {
       const APIKEY = "rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4";
 
-      let url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/collections/search?apiKey=${APIKEY}&name=${input}`;
+      let url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/collections/search?apiKey=${APIKEY}&name=${input}&verified=true`;
 
       fetch(url)
         .then((res) => res.json())

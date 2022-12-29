@@ -14,12 +14,12 @@
 
   <main>
     <div class="jumbotron">
-      <h1>Find Collections By Name</h1>
+      <h1>Find NFT By ID</h1>
       <div style="display: flex; justify-content: center;">
 
-        <form class="form-inline" method="get" action="/nft/detailCollection/<%=collectionId%>">
+        <form class="form-inline" method="get" action="/nft/detailCollection">
           <div class="form-group mx-sm-3 mb-2">
-            <input id="contractAddress" type="text" name="contractAddress" value="<%=contractAddress%>" hidden>
+            <input id="contractAddress" type="text" name="contractAddress" value="<%=contractAddress ? contractAddress : ''%>" hidden>
             <input class='form-control' id="tokenId" type="text" name="tokenId" placeholder="Token id..." required>
           </div>
           <button class='btn btn-info mb-2' type="submit"><i class="fa-solid fa-search"></i></button>
@@ -29,7 +29,7 @@
 
       <br>
       <%if(!collections) { %>
-        <h1>Not Found Any Collection</h1>
+        <h1>Not Found Any NFT</h1>
         <% }else {%>
           <div class="wrap row">
 
