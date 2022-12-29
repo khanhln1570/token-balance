@@ -65,18 +65,21 @@ router.get("/getNFTs", async function (req, res) {
     if (images.length !== 0) {
       res.render("pages/getNFTs", {
         images: images,
-        message: null
+        message: null,
+        address: address
       });
     }else {
       res.render("pages/getNFTs", {
         images: null,
-        message: "NOT FOUND"
+        message: "NOT FOUND",
+        address: address
       });
     }
   } else {
     res.render("pages/getNFTs", {
       images: null,
-      message: null
+      message: null,
+      address: null
     });
   }
 });
@@ -90,6 +93,7 @@ router.get("/getSpecific", async function (req, res) {
   const address = req.query.contractAddress;
   const tokenId = req.query.tokenId;
   const chain = req.query.chain;
+  const input = {address, tokenId, chain}
   if (address !== undefined) {
     // Alchemy URL
     let baseURL = "";
@@ -126,19 +130,22 @@ router.get("/getSpecific", async function (req, res) {
         if (!data) {
           res.render("pages/getSpecificNFT", {
             image: null,
-            message: null
+            message: "NOT FOUND",
+            input
           });
         }
         res.render("pages/getSpecificNFT", {
           image: data,
-          message: null
+          message: null,
+          input
         });
       })
       .catch((error) => console.log("error", error));
   } else {
     res.render("pages/getSpecificNFT", {
       image: null,
-      message: null
+      message: null,
+      input
     });
   }
 });

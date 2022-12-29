@@ -29,11 +29,11 @@
           </div>
           <div class="col-md-4 mb-3">
             <label>Contract address<span class="asterisk">*</span></label>
-            <input class='form-control' type="text" name="contractAddress" placeholder="Contract address..." required>
+            <input class='form-control' type="text" name="contractAddress" placeholder="Contract address..." value="<%=input.address ? input.address : ''%>" required>
           </div>
           <div class="col-md-4 mb-3">
             <label>Token ID<span class="asterisk">*</span></label>
-            <input class='form-control' type="text" name="tokenId" placeholder="Token ID..." required>
+            <input class='form-control' type="text" name="tokenId" placeholder="Token ID..." value="<%=input.tokenId ? input.tokenId : ''%>" required>
           </div>
         </div>
         <input class='form-control btn btn-info' type="submit" value="Find">
