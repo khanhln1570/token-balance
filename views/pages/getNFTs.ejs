@@ -38,6 +38,7 @@
 
       var accounts  = await web3.eth.getAccounts(); // get all connected accounts
       account = accounts[0]; // get the primary account
+      document.getElementById("walletAddress").value = account;
     }
 
 
