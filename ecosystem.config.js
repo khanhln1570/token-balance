@@ -3,7 +3,7 @@ module.exports = {
         name: "nft-finder",
         script: "npm",
         args: "run start",
-        cwd: "/home/root/nftFinder/token-balance",
+        cwd: "/home/khanhln/nftFinder/token-balance",
         watch: ["server", "client"],
         // Delay between restart
         watch_delay: 1000,
