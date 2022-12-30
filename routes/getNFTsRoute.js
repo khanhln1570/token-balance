@@ -305,9 +305,9 @@ router.get("/detailCollection", async function (req, res) {
           message: "NOT FOUND",
         });
       }
-      console.log(collections);
+      // console.log(collections);
       let contract_address = collections[0].contract_address ? collections[0].contract_address : null;
-      console.log(contract_address);
+      // console.log(contract_address);
       res.render("pages/detailCollection", {
         collections: collections,
         contractAddress: contract_address,
