@@ -216,6 +216,7 @@ router.get("/getNFTOpensea", async function (req, res) {
     res.render("pages/getNFTOpensea", {
       image: null,
       message: null,
+      urlOpensea: null
     });
   }
 });
