@@ -14,7 +14,7 @@
 
   <main>
     <div class="jumbotron">
-      <h1>Find Specific NFT by Opensea</h1>
+      <h1>Find NFTs by Opensea URL</h1>
       <form method="get" action="/nft/getNFTOpensea">
         <div class="find-opensea form-row">
           <div class="col-md-12 mb-3">
@@ -29,14 +29,17 @@
       </form>
 
       <%if(image) { %>
-        <img class="nft" src=<%=image.media[0].gateway %> width=250 height=250 onclick="callZekeke(`<%=
-          image.media[0].gateway %>`)" data-toggle="modal" data-target=".bd-example-modal-sm">
-          <% } %>
-            <%if(message) { %>
-              <h2>
-                <%=message %>
-              </h2>
+        <img class="nft" src=<%=image.media[0].gateway %> width=250 height=250 data-toggle="modal"
+        data-target="#modal-select-image"
+        data-link="<%=image.media[0].gateway%>"
+          data-title="<%=image.title%>"
+            data-tokenid="<%=image.id.tokenId%> ">
               <% } %>
+                <%if(message) { %>
+                  <h2>
+                    <%=message %>
+                  </h2>
+                  <% } %>
     </div>
 
 

@@ -9,6 +9,39 @@ function callZekeke(url) {
     "*"
   );
 }
+// select image nft
+$(document).on("click", ".nft", function () {
+
+  let link = $(this).attr("data-link");
+  let title = $(this).attr("data-title");
+  let tokenId = $(this).attr("data-tokenid");
+  console.log(link);
+  $(".modal-body #image-detail").attr("src", link);
+  $('.modal-body #image-title').text(title);
+  $('.modal-body #image-tokenId').text(`#${parseInt(tokenId)}`);
+  $("#flexCheckDefault").prop('checked', false);
+  $('#callZekeke').prop("disabled", true);
+  $('#generateQr').prop("disabled", true);
+  $(".modal-footer #qr-url").val(link);
+
+  $("#callZekeke").click(function () {
+    $(this).data('clicked', true);
+    if ($('#callZekeke').data('clicked')) {
+      callZekeke(link)
+    }
+  });
+});
+
+$('#flexCheckDefault').change(function () {
+  let isChecked = $('#flexCheckDefault').is(':checked');
+  if (isChecked) {
+    $('#callZekeke').prop("disabled", false);
+    $('#generateQr').prop("disabled", false);
+  } else {
+    $('#callZekeke').prop("disabled", true);
+    $('#generateQr').prop("disabled", true);
+  }
+}); 
 // window.addEventListener("message", function (event) {
 //         if (event.origin !== "http://localhost:8080")
 //             return;

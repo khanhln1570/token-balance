@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 
+// find by wallet
 router.get("/getNFTs", async function (req, res) {
   // Wallet address
   const address = req.query.walletAddress;
@@ -58,9 +59,7 @@ router.get("/getNFTs", async function (req, res) {
     );
 
     // console.log(resultsFilterNull);
-    const ownedNfts = resultsFilterNull.map((ownedNfts) => {
-      return ownedNfts.ownedNfts.map((contract) => contract.media[0].gateway);
-    });
+    const ownedNfts = resultsFilterNull.map((ownedNfts) => ownedNfts.ownedNfts);
     for (let index = 0; index < ownedNfts.length; index++) {
       const ownedNft = ownedNfts[index];
       for (let index = 0; index < ownedNft.length; index++) {
@@ -69,6 +68,7 @@ router.get("/getNFTs", async function (req, res) {
       }
     }
     if (images.length !== 0) {
+      
       res.render("pages/getNFTs", {
         images: images,
         message: null,
@@ -90,6 +90,7 @@ router.get("/getNFTs", async function (req, res) {
   }
 });
 
+// find by contract address
 router.get("/getSpecific", async function (req, res) {
   // Wallet address
   // const address = "0xbba21be4e2b63bcfb58b263b02408df4a52ec722";
@@ -156,6 +157,7 @@ router.get("/getSpecific", async function (req, res) {
   }
 });
 
+// find by opensea url
 router.get("/getNFTOpensea", async function (req, res) {
   // const url = "https://opensea.io/assets/ethereum/0x231d3559aa848bf10366fb9868590f01d34bf240/2178";
 
@@ -202,13 +204,13 @@ router.get("/getNFTOpensea", async function (req, res) {
           res.render("pages/getNFTOpensea", {
             image: null,
             message: "NOT FOUND",
-            urlOpensea: urlOpensea
+            urlOpensea: urlOpensea,
           });
         }
         res.render("pages/getNFTOpensea", {
           image: data,
           message: null,
-          urlOpensea: urlOpensea
+          urlOpensea: urlOpensea,
         });
       })
       .catch((error) => console.log("error", error));
@@ -216,7 +218,7 @@ router.get("/getNFTOpensea", async function (req, res) {
     res.render("pages/getNFTOpensea", {
       image: null,
       message: null,
-      urlOpensea: null
+      urlOpensea: null,
     });
   }
 });
@@ -264,6 +266,7 @@ router.get("/getCollections", async function (req, res) {
   }
 });
 
+// find by collection
 router.get("/detailCollection", async function (req, res) {
   const nameCollection = req.query.nameCollection;
   const tokenId = req.query.tokenId;
@@ -299,7 +302,7 @@ router.get("/detailCollection", async function (req, res) {
         collection.image_url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/${collection.image_url}?apiKey=${APIKEY}`;
         return collection;
       });
-      if (collections.length===0) {
+      if (collections.length === 0) {
         res.render("pages/detailCollection", {
           collections: null,
           contractAddress: null,
@@ -307,7 +310,9 @@ router.get("/detailCollection", async function (req, res) {
         });
       }
       // console.log(collections);
-      let contract_address = collections[0].contract_address ? collections[0].contract_address : null;
+      let contract_address = collections[0].contract_address
+        ? collections[0].contract_address
+        : null;
       // console.log(contract_address);
       res.render("pages/detailCollection", {
         collections: collections,

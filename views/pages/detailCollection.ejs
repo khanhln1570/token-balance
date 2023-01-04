@@ -35,10 +35,12 @@
 
             <% collections.forEach(function(collection) { %>
 
-              <div class="card col-md-3 col-sm-6">
-                <img src=<%=collection.image_url%> class="card-img-top" alt="..." onclick="callZekeke(`
-                <%=collection.image_url%>
-                  `)">
+              <div class="card col-md-3 col-sm-6 nft" data-toggle="modal"
+              data-target="#modal-select-image"
+              data-link="<%=collection.image_url%>"
+                data-title="<%=collection.name%>"
+                  data-tokenid="<%=collection.token_id%> ">
+                <img src=<%=collection.image_url%> class="card-img-top" alt="..." >
                   <div class="card-body">
                     <h5 class="card-title">
                       <%=collection.name%>
