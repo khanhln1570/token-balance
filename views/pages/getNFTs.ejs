@@ -35,7 +35,7 @@
         <ul>
           <% images.forEach(function(image) { %>
             <li>
-              <img class="nft" src=<%=image.media[0].gateway %> width=250 height=250
+              <img class="nft lazy-image" src="https://i.pinimg.com/originals/3f/2c/97/3f2c979b214d06e9caab8ba8326864f3.gif" data-src=<%=image.media[0].gateway %> width=250 height=250
               data-toggle="modal"
               data-target="#modal-select-image"
               data-link="<%=image.media[0].gateway%>"

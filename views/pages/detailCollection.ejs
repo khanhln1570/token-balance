@@ -19,7 +19,8 @@
 
         <form class="form-inline" method="get" action="/nft/detailCollection">
           <div class="form-group mx-sm-3 mb-2">
-            <input id="contractAddress" type="text" name="contractAddress" value="<%=contractAddress ? contractAddress : ''%>" hidden>
+            <input id="contractAddress" type="text" name="contractAddress"
+              value="<%=contractAddress ? contractAddress : ''%>" hidden>
             <input class='form-control' id="tokenId" type="text" name="tokenId" placeholder="Token id..." required>
           </div>
           <button class='btn btn-info mb-2' type="submit"><i class="fa-solid fa-search"></i></button>
@@ -35,20 +36,20 @@
 
             <% collections.forEach(function(collection) { %>
 
-              <div class="card col-md-3 col-sm-6 nft" data-toggle="modal"
-              data-target="#modal-select-image"
-              data-link="<%=collection.image_url%>"
-                data-title="<%=collection.name%>"
-                  data-tokenid="<%=collection.token_id%> ">
-                <img src=<%=collection.image_url%> class="card-img-top" alt="..." >
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <%=collection.name%>
-                    </h5>
-                    <p class="card-text">
-                      TOKEN ID: <%=collection.token_id%>
-                    </p>
-                  </div>
+              <div class="card col-md-3 col-sm-6 nft" data-toggle="modal" data-target="#modal-select-image"
+                data-link="<%=collection.image_url%>" data-title="<%=collection.name%>"
+                data-tokenid="<%=collection.token_id%> ">
+                <img
+                  src='https://i.pinimg.com/originals/3f/2c/97/3f2c979b214d06e9caab8ba8326864f3.gif'
+                  data-src=<%=collection.image_url%> class="card-img-top lazy-image" alt="..." >
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <%=collection.name%>
+                  </h5>
+                  <p class="card-text">
+                    TOKEN ID: <%=collection.token_id%>
+                  </p>
+                </div>
               </div>
               <% }); %>
           </div>
@@ -57,7 +58,36 @@
 
 
   </main>
+  <script>
+    // lazy-loading
+    const images = document.querySelectorAll('.lazy-image');
+    const config = {
+      // Khi hình ảnh này cách màn hình 300px,
+      // nó sẽ được load
+      rootMargin: '300px 0px',
+      threshold: 0.01
+    };
 
+    let observer = new IntersectionObserver(onIntersection, config);
+    images.forEach(image => {
+      
+      observer.observe(image);
+    });
+
+    function onIntersection(entries) {
+      entries.forEach(entry => {
+        // Nếu hình ảnh đã trở nên visible,
+        // thì thay thế src cũ bằng src mới
+        // và hủy bỏ theo dõi hình ảnh này
+        if (entry.intersectionRatio > 0) {
+          observer.unobserve(entry.target);
+          console.log("dc");
+          console.log(entry.target.src);
+          entry.target.src = entry.target.dataset.src;
+        }
+      });
+    }
+  </script>
   <footer>
     <%- include('../partials/footer'); %>
   </footer>

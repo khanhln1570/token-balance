@@ -1,5 +1,6 @@
 var express = require("express");
 var app = express();
+require('dotenv').config();
 // set the view engine to ejs
 app.set("view engine", "ejs");
 app.use(express.static('public'));

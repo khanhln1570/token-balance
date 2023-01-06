@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
+require("dotenv").config();
 
 // find by wallet
 router.get("/getNFTs", async function (req, res) {
@@ -8,13 +9,17 @@ router.get("/getNFTs", async function (req, res) {
   const address = req.query.walletAddress;
   if (address) {
     let images = [];
+    const APIKEY_ETHEREUM_ALCHEMY = process.env.APIKEY_ETHEREUM_ALCHEMY;
+    const APIKEY_POLYGON_ALCHEMY = process.env.APIKEY_POLYGON_ALCHEMY;
+    const APIKEY_ARBITRUM_ALCHEMY = process.env.APIKEY_ARBITRUM_ALCHEMY;
+    const APIKEY_OPTIMISM_ALCHEMY = process.env.APIKEY_OPTIMISM_ALCHEMY;
 
     const excludeFilters = ["SPAM"];
     // Alchemy URL
-    const baseURLEthereum = `https://eth-mainnet.g.alchemy.com/v2/YVMqyY1EhL0f281q52gtBw04p92ACOzA`;
-    const baseURLPolygon = `https://polygon-mainnet.g.alchemy.com/v2/uADTmcfw38hlAUu7m0vjyREqKFEOzjD_`;
-    const baseURLArbitrum = `https://arb-mainnet.g.alchemy.com/v2/3YPCXZqc3Y3DAsEGV6ERHaKPToOBugYk`;
-    const baseURLOptimism = `https://opt-mainnet.g.alchemy.com/v2/S47UuB5EDzwZpF8x_E9HmMIjrX3nFFaP`;
+    const baseURLEthereum = `https://eth-mainnet.g.alchemy.com/v2/${APIKEY_ETHEREUM_ALCHEMY}`;
+    const baseURLPolygon = `https://polygon-mainnet.g.alchemy.com/v2/${APIKEY_POLYGON_ALCHEMY}`;
+    const baseURLArbitrum = `https://arb-mainnet.g.alchemy.com/v2/${APIKEY_ARBITRUM_ALCHEMY}`;
+    const baseURLOptimism = `https://opt-mainnet.g.alchemy.com/v2/${APIKEY_OPTIMISM_ALCHEMY}`;
     const urlEthereum = `${baseURLEthereum}/getNFTs/?owner=${address}&excludeFilters=${excludeFilters}`;
     const urlPolygon = `${baseURLPolygon}/getNFTs/?owner=${address}&excludeFilters=${excludeFilters}`;
     const urlArbitrum = `${baseURLArbitrum}/getNFTs/?owner=${address}&excludeFilters=${excludeFilters}`;
@@ -68,7 +73,6 @@ router.get("/getNFTs", async function (req, res) {
       }
     }
     if (images.length !== 0) {
-      
       res.render("pages/getNFTs", {
         images: images,
         message: null,
@@ -96,6 +100,10 @@ router.get("/getSpecific", async function (req, res) {
   // const address = "0xbba21be4e2b63bcfb58b263b02408df4a52ec722";
   // const tokenId = 703;
   // const chain = 'eth'
+  const APIKEY_ETHEREUM_ALCHEMY = process.env.APIKEY_ETHEREUM_ALCHEMY;
+  const APIKEY_POLYGON_ALCHEMY = process.env.APIKEY_POLYGON_ALCHEMY;
+  const APIKEY_ARBITRUM_ALCHEMY = process.env.APIKEY_ARBITRUM_ALCHEMY;
+  const APIKEY_OPTIMISM_ALCHEMY = process.env.APIKEY_OPTIMISM_ALCHEMY;
 
   const address = req.query.contractAddress;
   const tokenId = req.query.tokenId;
@@ -106,19 +114,19 @@ router.get("/getSpecific", async function (req, res) {
     let baseURL = "";
     switch (chain) {
       case "eth":
-        baseURL = `https://eth-mainnet.g.alchemy.com/v2/YVMqyY1EhL0f281q52gtBw04p92ACOzA`;
+        baseURL = `https://eth-mainnet.g.alchemy.com/v2/${APIKEY_ETHEREUM_ALCHEMY}`;
         break;
       case "matic":
-        baseURL = `https://polygon-mainnet.g.alchemy.com/v2/uADTmcfw38hlAUu7m0vjyREqKFEOzjD_`;
+        baseURL = `https://polygon-mainnet.g.alchemy.com/v2/${APIKEY_POLYGON_ALCHEMY}`;
         break;
       case "arbitrum":
-        baseURL = `https://arb-mainnet.g.alchemy.com/v2/3YPCXZqc3Y3DAsEGV6ERHaKPToOBugYk`;
+        baseURL = `https://arb-mainnet.g.alchemy.com/v2/${APIKEY_ARBITRUM_ALCHEMY}`;
         break;
       case "optimism":
-        baseURL = `https://opt-mainnet.g.alchemy.com/v2/S47UuB5EDzwZpF8x_E9HmMIjrX3nFFaP`;
+        baseURL = `https://opt-mainnet.g.alchemy.com/v2/${APIKEY_OPTIMISM_ALCHEMY}`;
         break;
       default:
-        baseURL = `https://eth-mainnet.g.alchemy.com/v2/YVMqyY1EhL0f281q52gtBw04p92ACOzA`;
+        baseURL = `https://eth-mainnet.g.alchemy.com/v2/${APIKEY_ETHEREUM_ALCHEMY}`;
         break;
     }
 
@@ -170,22 +178,25 @@ router.get("/getNFTOpensea", async function (req, res) {
     const tokenId = splitUrl[splitUrl.length - 1];
     // Alchemy URL
     let baseURL = "";
-
+    const APIKEY_ETHEREUM_ALCHEMY = process.env.APIKEY_ETHEREUM_ALCHEMY;
+    const APIKEY_POLYGON_ALCHEMY = process.env.APIKEY_POLYGON_ALCHEMY;
+    const APIKEY_ARBITRUM_ALCHEMY = process.env.APIKEY_ARBITRUM_ALCHEMY;
+    const APIKEY_OPTIMISM_ALCHEMY = process.env.APIKEY_OPTIMISM_ALCHEMY;
     switch (splitUrl[splitUrl.length - 3]) {
       case "eth":
-        baseURL = `https://eth-mainnet.g.alchemy.com/v2/YVMqyY1EhL0f281q52gtBw04p92ACOzA`;
+        baseURL = `https://eth-mainnet.g.alchemy.com/v2/${APIKEY_ETHEREUM_ALCHEMY}`;
         break;
       case "matic":
-        baseURL = `https://polygon-mainnet.g.alchemy.com/v2/uADTmcfw38hlAUu7m0vjyREqKFEOzjD_`;
+        baseURL = `https://polygon-mainnet.g.alchemy.com/v2/${APIKEY_POLYGON_ALCHEMY}`;
         break;
       case "arbitrum":
-        baseURL = `https://arb-mainnet.g.alchemy.com/v2/3YPCXZqc3Y3DAsEGV6ERHaKPToOBugYk`;
+        baseURL = `https://arb-mainnet.g.alchemy.com/v2/${APIKEY_ARBITRUM_ALCHEMY}`;
         break;
       case "optimism":
-        baseURL = `https://opt-mainnet.g.alchemy.com/v2/S47UuB5EDzwZpF8x_E9HmMIjrX3nFFaP`;
+        baseURL = `https://opt-mainnet.g.alchemy.com/v2/${APIKEY_OPTIMISM_ALCHEMY}`;
         break;
       default:
-        baseURL = `https://eth-mainnet.g.alchemy.com/v2/YVMqyY1EhL0f281q52gtBw04p92ACOzA`;
+        baseURL = `https://eth-mainnet.g.alchemy.com/v2/${APIKEY_ETHEREUM_ALCHEMY}`;
         break;
     }
     const url = `${baseURL}/getNFTMetadata?contractAddress=${address}&tokenId=${tokenId}`;
@@ -226,7 +237,7 @@ router.get("/getNFTOpensea", async function (req, res) {
 // not now
 router.get("/getCollections", async function (req, res) {
   const name = req.query.nameCollection;
-  const APIKEY = "rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4";
+  const APIKEY = process.env.APIKEY_BLOCKDEAMON;
 
   if (name) {
     let url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/collections/search?name=${name}&verified=true`;
@@ -271,7 +282,7 @@ router.get("/detailCollection", async function (req, res) {
   const nameCollection = req.query.nameCollection;
   const tokenId = req.query.tokenId;
   const contractAddress = req.query.contractAddress;
-  const APIKEY = "rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4";
+  const APIKEY = process.env.APIKEY_BLOCKDEAMON;
 
   let url;
   if (contractAddress && tokenId) {

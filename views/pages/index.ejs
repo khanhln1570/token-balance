@@ -11,102 +11,37 @@
   <main>
     <div>
       <p style="text-align: center;">
-        Use our NFT finder, below, to find your NFTs on the Ethereum and Polygon blockchains and then use them to
-        customize your physical products. The products will then be manufactured on-demand using your selected NFT
-        images and will be on their way to you in 3 - 4 business days.
+        Use our NFT finder to find your NFTs and then use your NFTs to customize your physical products. You can use the
+        NFT finder directly from within the editor to save time. After selecting your product and hitting customize to
+        open the editor, click on the NFT logo to launch the NFT finder.
       </p>
     </div>
     <div class="jumbotron row">
 
-      <!-- <div class="find-specific col-md-6 col-sm-12">
-        <h1>Find Specific NFT</h1>
-        <form method="get" action="/nft/getSpecific">
-          <div class="find-token form-row">
-            <div class="col-md-4 mb-3">
-              <label>Blockchain<span class="asterisk">*</span></label>
-              <select class="form-select form-control" aria-label="Default select example" name="chain" required>
-                <option value="">-- Blockchain --</option>
-                <option value="eth">Ethereum</option>
-                <option value="matic">Polygon</option>
-                <option value="arbitrum">Arbitrum</option>
-                <option value="optimism">Optimism</option>
-              </select>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label>Contract address<span class="asterisk">*</span></label>
-              <input class='form-control' type="text" name="contractAddress" placeholder="Contract address..." required>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label>Token ID<span class="asterisk">*</span></label>
-              <input class='form-control' type="text" name="tokenId" placeholder="Token ID..." required>
-            </div>
-          </div>
-          <input class='form-control btn btn-info' type="submit" value="Find">
-        </form>
-        <br>
-        <form method="get" action="/nft/getNFTOpensea">
-          <div class="find-opensea form-row">
-            <div class="col-md-12 mb-3">
-              <label>Or use its Opensea URL<span class="asterisk">*</span></label>
-              <input class='form-control' type="text" name="url" placeholder="Opensea url..." required>
-            </div>
-            <div class="col-md-12 mb-3">
-              <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Find">
-            </div>
-          </div>
-        </form>
-      </div>
-      <br>
-      <div class="find-wallet col-md-6 col-sm-12">
-        <h1>Find NFTs By Wallet</h1>
-        <form method="get" action="/nft/getNFTs">
-          <div class="form-row">
-            <div class="col-md-12 mb-3">
-              <label>Find a NFTs By Wallet<span class="asterisk">*</span></label>
-              <input class='form-control' id="walletAddress" type="text" name="walletAddress"
-                placeholder="Wallet address..." required>
-            </div>
-            <div class="col-md-12 mb-3">
-              <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Find">
-              <button id="connect-button" class="btn btn-outline-secondary"><i class="fa-solid fa-wallet"></i></button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="find-collections col-md-6 col-sm-12">
-        <h1>Find Collections By Name</h1>
-        <form autocomplete="off" method="get" action="/nft/getCollections">
-          <div class="autocomplete form-row">
-            <div class="col-md-12 mb-3">
-              <label>Find by name<span class="asterisk">*</span></label>
-              <input class='form-control' id="nameCollection" type="text" name="nameCollection"
-                placeholder="Collection name..." oninput="apiCall()" required>
-            </div>
-            <div class="col-md-12 mb-3">
-              <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Find">
-            </div>
-          </div>
-        </form>
-      </div> -->
-
       <div class="col-md-12">
         <h1>NFT Finder</h1>
         <div class="row">
-         
+
           <div class="col-4">
 
           </div>
           <div class="col-md-4">
-            
-            <button onclick="location.href = '/nft/getNFTs';" type="button" class="btn btn-outline-info btn-md btn-block"><i class="fa-solid fa-wallet"></i> By Wallet</button>
-            <button onclick="location.href = '/nft/getCollections';" type="button" class="btn btn-outline-info btn-md btn-block"><i class="fa-solid fa-th" aria-hidden="true"></i> By Collection</button>
-            <button onclick="location.href = '/nft/getSpecific';"type="button" class="btn btn-outline-info btn-md btn-block"><i class="fa-solid fa-list-alt" aria-hidden="true"></i> By Contract</button>
-            <button onclick="location.href = '/nft/getNFTOpensea';" type="button" class="btn btn-outline-info btn-md btn-block"><i class="fa-solid fa-link" aria-hidden="true"></i> By Opensea URL</button>
+
+            <button onclick="location.href = '/nft/getNFTs';" type="button" class="btn btn-dark btn-lg btn-block"><i
+                class="fa-solid fa-wallet"></i> By Wallet</button>
+            <button onclick="location.href = '/nft/getCollections';" type="button"
+              class="btn btn-dark btn-lg btn-block"><i class="fa-solid fa-th" aria-hidden="true"></i> By
+              Collection</button>
+            <button onclick="location.href = '/nft/getSpecific';" type="button" class="btn btn-dark btn-lg btn-block"><i
+                class="fa-solid fa-list-alt" aria-hidden="true"></i> By Contract</button>
+            <button onclick="location.href = '/nft/getNFTOpensea';" type="button"
+              class="btn btn-dark btn-lg btn-block"><i class="fa-solid fa-link" aria-hidden="true"></i> By Opensea
+              URL</button>
           </div>
           <div class="col-4">
 
           </div>
-          
+
         </div>
 
       </div>
