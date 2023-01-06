@@ -1,3 +1,28 @@
+const images = document.querySelectorAll(".lazy-image");
+const config = {
+  // Khi hình ảnh này cách màn hình 300px,
+  // nó sẽ được load
+  rootMargin: "300px 0px",
+  threshold: 0.01,
+};
+
+let observer = new IntersectionObserver(onIntersection, config);
+images.forEach((image) => {
+  observer.observe(image);
+});
+
+function onIntersection(entries) {
+  entries.forEach((entry) => {
+    // Nếu hình ảnh đã trở nên visible,
+    // thì thay thế src cũ bằng src mới
+    // và hủy bỏ theo dõi hình ảnh này
+    if (entry.intersectionRatio > 0) {
+      observer.unobserve(entry.target);
+      entry.target.src = entry.target.dataset.src;
+    }
+  });
+}
+
 function callZekeke(url) {
   console.log(url);
   window.parent.postMessage(
@@ -29,17 +54,16 @@ $(document).on("click", ".nft", function () {
       callZekeke(link);
     }
   });
-});
-
-$("#flexCheckDefault").change(function () {
-  let isChecked = $("#flexCheckDefault").is(":checked");
-  if (isChecked) {
-    $("#callZekeke").prop("disabled", false);
-    $("#generateQr").prop("disabled", false);
-  } else {
-    $("#callZekeke").prop("disabled", true);
-    $("#generateQr").prop("disabled", true);
-  }
+  $("#flexCheckDefault").change(function () {
+    let isChecked = $("#flexCheckDefault").is(":checked");
+    if (isChecked) {
+      $("#callZekeke").prop("disabled", false);
+      $("#generateQr").prop("disabled", false);
+    } else {
+      $("#callZekeke").prop("disabled", true);
+      $("#generateQr").prop("disabled", true);
+    }
+  });
 });
 
 /* find collecion */
@@ -321,28 +345,3 @@ const disconnect = async () => {
   // Close provider session
   await provider.disconnect();
 };
-
-const images = document.querySelectorAll(".lazy-image");
-const config = {
-  // Khi hình ảnh này cách màn hình 300px,
-  // nó sẽ được load
-  rootMargin: "300px 0px",
-  threshold: 0.01,
-};
-
-let observer = new IntersectionObserver(onIntersection, config);
-images.forEach((image) => {
-  observer.observe(image);
-});
-
-function onIntersection(entries) {
-  entries.forEach((entry) => {
-    // Nếu hình ảnh đã trở nên visible,
-    // thì thay thế src cũ bằng src mới
-    // và hủy bỏ theo dõi hình ảnh này
-    if (entry.intersectionRatio > 0) {
-      observer.unobserve(entry.target);
-      entry.target.src = entry.target.dataset.src;
-    }
-  });
-}
