@@ -128,7 +128,7 @@ document
               );
             }
           });
-      }, 500);
+      }, 300);
     }
   });
 
@@ -156,14 +156,15 @@ function autocomplete(inp, arr) {
     this.parentNode.appendChild(a);
     /*for each item in the array...*/
     for (i = 0; i < arr.length; i++) {
-      // if (arr[i].replace(/\s/g,'').toLowerCase().includes(val.replace(/\s/g,'').toLowerCase()) ) {
+      if (arr[i].name.toUpperCase().includes(val.toUpperCase())) {
 
       /*create a DIV element for each matching element:*/
       b = document.createElement("DIV");
-      /*make the matching letters bold:*/
+      
 
       b.innerHTML = `<img class= "lazy-image" style=" border-radius: 50%;width: 50px;height: 50px; margin-right: 20px" src="https://i.pinimg.com/originals/3f/2c/97/3f2c979b214d06e9caab8ba8326864f3.gif" data-src=${arr[i].logo}>`;
       b.innerHTML += "<strong>" + arr[i].name + "</strong>";
+
       /*insert a input field that will hold the current array item's value:*/
       b.innerHTML += "<input type='hidden' value='" + arr[i].name + "'>";
       /*execute a function when someone clicks on the item value (DIV element):*/
@@ -176,7 +177,7 @@ function autocomplete(inp, arr) {
         closeAllLists();
       });
       a.appendChild(b);
-      // }
+      }
     }
   });
   /*execute a function presses a key on the keyboard:*/
