@@ -1,28 +1,28 @@
 /** lazy image */
 const images = document.querySelectorAll(".lazy-image");
-  const config = {
-    // Khi hình ảnh này cách màn hình 300px,
-    // nó sẽ được load
-    rootMargin: "300px 0px",
-    threshold: 0.01,
-  };
+const config = {
+  // Khi hình ảnh này cách màn hình 300px,
+  // nó sẽ được load
+  rootMargin: "300px 0px",
+  threshold: 0.01,
+};
 
-  let observer = new IntersectionObserver(onIntersection, config);
-  images.forEach((image) => {
-    observer.observe(image);
+let observer = new IntersectionObserver(onIntersection, config);
+images.forEach((image) => {
+  observer.observe(image);
+});
+
+function onIntersection(entries) {
+  entries.forEach((entry) => {
+    // Nếu hình ảnh đã trở nên visible,
+    // thì thay thế src cũ bằng src mới
+    // và hủy bỏ theo dõi hình ảnh này
+    if (entry.intersectionRatio > 0) {
+      observer.unobserve(entry.target);
+      entry.target.src = entry.target.dataset.src;
+    }
   });
-
-  function onIntersection(entries) {
-    entries.forEach((entry) => {
-      // Nếu hình ảnh đã trở nên visible,
-      // thì thay thế src cũ bằng src mới
-      // và hủy bỏ theo dõi hình ảnh này
-      if (entry.intersectionRatio > 0) {
-        observer.unobserve(entry.target);
-        entry.target.src = entry.target.dataset.src;
-      }
-    });
-  }
+}
 
 function callZekeke(url) {
   console.log(url);
@@ -217,18 +217,11 @@ function saveInput(input) {
 let input = 'default';
 const processChanges = debounce(() => saveInput(input));
 
-document
-  .getElementById("nameCollection")
-  .addEventListener("input", async (event) => {
-    input = event.target.value;
-    if (input.length > 0) {
-      processChanges();
-    }
-  })
-function autoCompleteDefault(arr) {
-  if (!arr) arr = defaultSuggestions;
-  let input = document.getElementById("nameCollection")
 
+function autoCompleteDefault(arr, isDefault = true) {
+  if (!arr) arr = defaultSuggestions;
+  let input = document.getElementById("nameCollection");
+  if (isDefault) input.value = '';
   var dropdown, // dropdown
     items, // item of dropdown
     i
@@ -251,10 +244,10 @@ function autoCompleteDefault(arr) {
     items.innerHTML += "<input type='hidden' value='" + arr[i].name + "'>";
     /*execute a function when someone clicks on the item value (DIV element):*/
     items.addEventListener("click", function (e) {
+      console.log('OKOKKOKOKKOOK');
       /*insert the value for the autocomplete text field:*/
       input.value = this.getElementsByTagName("input")[0].value;
-      const element = document.getElementById('autocomplete-list');
-      element.parentNode.removeChild(element);
+      getDetailCollection(input.value);
     });
     dropdown.appendChild(items);
 
@@ -288,60 +281,58 @@ function autoCompleteDefault(arr) {
 
 function autocomplete(inp, arr) {
   if (arr.length > 0) {
-   return autoCompleteDefault(arr)
+    autoCompleteDefault(arr, false)
   }
   var currentFocus;
-closeAllLists();
+  closeAllLists();
   currentFocus = -1
-//   inp.addEventListener("input", function (e) {
-//     var a, // dropdown
-//       b, // item of dropdown
-//       i,
-//       val = this.value;
-//     closeAllLists();
-//     currentFocus = -1;
-// console.log(currentFocus);
-//     /*create a DIV element that will contain the items (values):*/
-//     a = document.createElement("DIV");
-//     a.setAttribute("id", "autocomplete-list");
-//     a.setAttribute("class", "autocomplete-items scroll");
-//     /*append the DIV element as a child of the autocomplete container:*/
-//     this.parentNode.appendChild(a);
-//     if (val.length > 0) {
+  inp.addEventListener("input", function (e) {
+    var a, // dropdown
+      b, // item of dropdown
+      i,
+      val = this.value;
+    closeAllLists();
+    currentFocus = -1;
+    console.log(currentFocus);
+    /*create a DIV element that will contain the items (values):*/
+    a = document.createElement("DIV");
+    a.setAttribute("id", "autocomplete-list");
+    a.setAttribute("class", "autocomplete-items scroll");
+    /*append the DIV element as a child of the autocomplete container:*/
+    this.parentNode.appendChild(a);
+    if (val.length > 0) {
 
-//       for (i = 0; i < arr.length; i++) {
-//         if (arr[i].name.toUpperCase().includes(val.toUpperCase())) {
-//           /*create a DIV element for each matching element:*/
-//           b = document.createElement("DIV");
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i].name.toUpperCase().includes(val.toUpperCase())) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
 
-//           b.innerHTML = `<img class= "lazy-image" style=" border-radius: 50%;width: 50px;height: 50px; margin-right: 20px" src="https://i.pinimg.com/originals/3f/2c/97/3f2c979b214d06e9caab8ba8326864f3.gif" data-src="https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/${arr[i].logo}?apiKey=rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4">`;
-//           b.innerHTML += "<strong>" + arr[i].name + "</strong>";
+          b.innerHTML = `<img class= "lazy-image" style=" border-radius: 50%;width: 50px;height: 50px; margin-right: 20px" src="https://i.pinimg.com/originals/3f/2c/97/3f2c979b214d06e9caab8ba8326864f3.gif" data-src="https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/${arr[i].logo}?apiKey=rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4">`;
+          b.innerHTML += "<strong>" + arr[i].name + "</strong>";
 
-//           /*insert a input field that will hold the current array item's value:*/
-//           b.innerHTML += "<input type='hidden' value='" + arr[i].name + "'>";
-//           /*execute a function when someone clicks on the item value (DIV element):*/
-//           b.addEventListener("click", function (e) {
-//             /*insert the value for the autocomplete text field:*/
-//             inp.value = this.getElementsByTagName("input")[0].value;
-//             /*close the list of autocompleted values,
-//                     (or any other open lists of autocompleted values:*/
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i].name + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+          b.addEventListener("click", function (e) {
+            /*insert the value for the autocomplete text field:*/
+            inp.value = this.getElementsByTagName("input")[0].value;
 
-//             closeAllLists();
-//           });
-//           a.appendChild(b);
-//         }
-//       }
-//     } else {
-//       autoCompleteDefault(defaultSuggestions);
-//     }
 
-//   });
+            getDetailCollection();
+          });
+          a.appendChild(b);
+        }
+      }
+    } else {
+      autoCompleteDefault(defaultSuggestions, false);
+    }
+
+  });
   /*execute a function presses a key on the keyboard:*/
   inp.addEventListener("keydown", function (e) {
     var x = document.getElementById("autocomplete-list");
-    
+
     if (x) x = x.getElementsByTagName("div");
-console.log(x);
     if (e.keyCode == 40) {
       /*If the arrow DOWN key is pressed,
               increase the currentFocus variable:*/
@@ -395,30 +386,11 @@ console.log(x);
     closeAllLists(e.target);
   });
 
-  /**lazy loading */
-  const images = document.querySelectorAll(".lazy-image");
-  const config = {
-    // Khi hình ảnh này cách màn hình 300px,
-    // nó sẽ được load
-    rootMargin: "300px 0px",
-    threshold: 0.01,
-  };
 
-  let observer = new IntersectionObserver(onIntersection, config);
-  images.forEach((image) => {
-    observer.observe(image);
-  });
-
-  function onIntersection(entries) {
-    entries.forEach((entry) => {
-      // Nếu hình ảnh đã trở nên visible,
-      // thì thay thế src cũ bằng src mới
-      // và hủy bỏ theo dõi hình ảnh này
-      if (entry.intersectionRatio > 0) {
-        observer.unobserve(entry.target);
-        entry.target.src = entry.target.dataset.src;
-      }
-    });
-  }
 }
 
+function getDetailCollection(nameCollection) {
+  let url = `/nft/detailCollection?nameCollection=${nameCollection}`;
+  window.location.href = url;
+
+}
