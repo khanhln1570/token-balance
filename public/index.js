@@ -49,7 +49,8 @@ $(document).on("click", ".nft", function () {
   $("#generateQr").prop("disabled", true);
   $("#downloadNft").prop("disabled", true);
   $(".modal-footer #qr-url").val(link);
-  $("#downloadNft #link-download").attr("href", link);
+  $("#downloadNft").attr("data-image-src", link);
+  $("#downloadNft").attr("data-image-title", title);
 
   $("#callZekeke").click(function () {
     $(this).data("clicked", true);
@@ -71,16 +72,15 @@ $(document).on("click", ".nft", function () {
   });
 });
 
-const downloadNft = document.getElementById("link-download");
+const downloadNft = document.getElementById("downloadNft");
 downloadNft.addEventListener("click", (event) => {
-  event.preventDefault();
   // Tải hình ảnh về máy tính
-  downloadImages(downloadNft.href);
+  downloadImages(downloadNft.dataset.imageSrc, downloadNft.dataset.imageTitle);
 });
-downloadImages = () => {
-  urls.map((url) => {
-    const splitUrl = url.split("/");
-    const filename = splitUrl[splitUrl.length - 1];
+const downloadImages = (url, title) => {
+
+   
+    const filename = `${title}.png`;
     fetch(url)
       .then((response) => {
         response.arrayBuffer().then(function (buffer) {
@@ -96,7 +96,7 @@ downloadImages = () => {
       .catch((err) => {
         console.log(err);
       });
-  });
+
 };
 
 
@@ -244,7 +244,6 @@ function autoCompleteDefault(arr, isDefault = true) {
     items.innerHTML += "<input type='hidden' value='" + arr[i].name + "'>";
     /*execute a function when someone clicks on the item value (DIV element):*/
     items.addEventListener("click", function (e) {
-      console.log('OKOKKOKOKKOOK');
       /*insert the value for the autocomplete text field:*/
       input.value = this.getElementsByTagName("input")[0].value;
       getDetailCollection(input.value);

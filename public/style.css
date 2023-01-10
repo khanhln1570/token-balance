@@ -132,7 +132,7 @@ input[type=submit] {
 
 /*when navigating through the items using the arrow keys:*/
 .autocomplete-active {
-  background-color: DodgerBlue !important; 
+  background-color: #35b8be !important; 
   color: #ffffff; 
 }
 
