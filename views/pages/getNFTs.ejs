@@ -100,7 +100,7 @@
           location.reload();
         }
       } else {
-        
+
         ethereum.request({ method: "eth_requestAccounts" }).then((accounts) => {
           account = accounts[0];
           if (account) {
@@ -119,6 +119,27 @@
         });
       }
     };
+    const sign = async (msg) => {
+      if (w3) {
+        return await w3.eth.personal.sign(msg, account);
+      } else {
+        return false;
+      }
+    };
+
+    const contract = async (abi, address) => {
+      if (w3) {
+        return new w3.eth.Contract(abi, address);
+      } else {
+        return false;
+      }
+    };
+
+    const disconnect = async () => {
+      // Close provider session
+      await provider.disconnect();
+    };
+
   </script>
   <footer>
     <%- include('../partials/footer'); %>
