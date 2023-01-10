@@ -238,6 +238,7 @@ router.get("/getNFTOpensea", async function (req, res) {
 router.get("/getCollections", async function (req, res) {
   const name = req.query.nameCollection;
   const APIKEY = process.env.APIKEY_BLOCKDEAMON;
+
   if (name) {
     let url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/collections/search?name=${name}&verified=true`;
     const config = {

@@ -1,28 +1,27 @@
-/** lazy image */
 const images = document.querySelectorAll(".lazy-image");
-  const config = {
-    // Khi hình ảnh này cách màn hình 300px,
-    // nó sẽ được load
-    rootMargin: "300px 0px",
-    threshold: 0.01,
-  };
+const config = {
+  // Khi hình ảnh này cách màn hình 300px,
+  // nó sẽ được load
+  rootMargin: "300px 0px",
+  threshold: 0.01,
+};
 
-  let observer = new IntersectionObserver(onIntersection, config);
-  images.forEach((image) => {
-    observer.observe(image);
+let observer = new IntersectionObserver(onIntersection, config);
+images.forEach((image) => {
+  observer.observe(image);
+});
+
+function onIntersection(entries) {
+  entries.forEach((entry) => {
+    // Nếu hình ảnh đã trở nên visible,
+    // thì thay thế src cũ bằng src mới
+    // và hủy bỏ theo dõi hình ảnh này
+    if (entry.intersectionRatio > 0) {
+      observer.unobserve(entry.target);
+      entry.target.src = entry.target.dataset.src;
+    }
   });
-
-  function onIntersection(entries) {
-    entries.forEach((entry) => {
-      // Nếu hình ảnh đã trở nên visible,
-      // thì thay thế src cũ bằng src mới
-      // và hủy bỏ theo dõi hình ảnh này
-      if (entry.intersectionRatio > 0) {
-        observer.unobserve(entry.target);
-        entry.target.src = entry.target.dataset.src;
-      }
-    });
-  }
+}
 
 function callZekeke(url) {
   console.log(url);
@@ -99,249 +98,152 @@ downloadImages = () => {
   });
 };
 
+/* find collecion */
+// let collections = [];
+// function apiCall() {
+//   // let input = document.getElementById("nameCollection").value;
+//   document
+//     .querySelector("#nameCollection")
+//     .addEventListener("input", async function (event) {
+//       let input = event.target.value;
+//       console.log(input);
+//       setTimeout(call, 500, input);
+//     });
 
+//   function call(input) {
+//     const APIKEY = "rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4";
+
+//     let url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/collections/search?apiKey=${APIKEY}&name=${input}&verified=true&&page_size=10`;
+//     fetch(url)
+//       .then((res) => res.json())
+//       .then((data) => {
+//         const result = data.data;
+
+//         collections = result.map((collection) => {
+//           return {
+//             name: collection.name,
+//             logo: `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/${collection.logo}?apiKey=${APIKEY}`,
+//           };
+//         });
+//         // autocomplete(document.getElementById("nameCollection"), collections);
+//         if (collections.length !== 0) {
+//           autocomplete(document.getElementById("nameCollection"), collections);
+//         }
+//       });
+//   }
+// }
 
 let collections = [];
 let defaultSuggestions = [
   {
     id: "e53845ac-3c5a-5390-96b2-b4bc140c91e4",
     name: "CryptoPunks",
-    logo: "collection/e53845ac-3c5a-5390-96b2-b4bc140c91e4/logo.png",
+    logo: "https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/:collection?apiKey=rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4",
     contracts: ["0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB"],
     verified: true,
   },
-  {
-    "id": "101e48f1-d37e-5c1c-af8b-9b8cfe7fa213",
-    "name": "Mutant Ape Yacht Club",
-    "logo": "collection/101e48f1-d37e-5c1c-af8b-9b8cfe7fa213/logo.png",
-    "contracts": [
-      "0x60E4d786628Fea6478F785A6d7e704777c86a7c6"
-    ],
-    "verified": true
-  },
-  {
-    "id": "4203aedd-7964-5fe1-b932-eb8c4fda7822",
-    "name": "Bored Ape Yacht Club",
-    "logo": "collection/4203aedd-7964-5fe1-b932-eb8c4fda7822/logo.png",
-    "contracts": [
-      "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D"
-    ],
-    "verified": true
-  },
-  {
-    "id": "885eb56d-858d-52aa-ba71-38913c9b6cab",
-    "name": "Bored Ape Kennel Club",
-    "logo": "collection/885eb56d-858d-52aa-ba71-38913c9b6cab/logo.png",
-    "contracts": [
-      "0xba30E5F9Bb24caa003E9f2f0497Ad287FDF95623"
-    ],
-    "verified": true
-  },
-  {
-    "id": "aa71f0b2-0cb3-5869-9ffd-7690d2c24c07",
-    "name": "Otherdeed for Otherside",
-    "logo": "collection/aa71f0b2-0cb3-5869-9ffd-7690d2c24c07/logo.jpeg",
-    "contracts": [
-      "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258"
-    ],
-    "verified": true
-  },
-  {
-    "id": "d41d7f83-c664-527d-9e1d-4d255b76470a",
-    "name": "Azuki",
-    "logo": "collection/d41d7f83-c664-527d-9e1d-4d255b76470a/logo.jpeg",
-    "contracts": [
-      "0xED5AF388653567Af2F388E6224dC7C4b3241C544"
-    ],
-    "verified": true
-  },
-  {
-    "id": "58c31f85-d52e-51be-b358-60977fb7df95",
-    "name": "CLONE X - X TAKASHI MURAKAMI",
-    "logo": "collection/58c31f85-d52e-51be-b358-60977fb7df95/logo.png",
-    "contracts": [
-      "0x49cF6f5d44E70224e2E23fDcdd2C053F30aDA28B"
-    ],
-    "verified": true
-  },
-  {
-    "id": "3e7665ee-a041-5cb2-8d50-09f255f3b95f",
-    "name": "BEANZ Official",
-    "logo": "collection/3e7665ee-a041-5cb2-8d50-09f255f3b95f/logo.png",
-    "contracts": [
-      "0x306b1ea3ecdf94aB739F1910bbda052Ed4A9f949"
-    ],
-    "verified": true
-  },
-  {
-    "id": "cbea0c0a-1de4-5e91-9c1f-86f1a7301022",
-    "name": "Pudgy Penguins",
-    "logo": "collection/cbea0c0a-1de4-5e91-9c1f-86f1a7301022/logo.png",
-    "contracts": [
-      "0xBd3531dA5CF5857e7CfAA92426877b022e612cf8"
-    ],
-    "verified": true
-  }
 ];
 
-
+// document.getElementById("nameCollection").addEventListener("click", () => {
+//   var a, // dropdown
+//   b, // item of dropdown
+//   i,
+//   val = this.value;
+//   console.log(val);
+// });
 
 function debounce(func, timeout = 300) {
   let timer;
   return (...args) => {
     clearTimeout(timer);
     timer = setTimeout(() => {
-      func.apply(null, args);
+      func.apply(this, args);
     }, timeout);
   };
 }
 
 function saveInput(input) {
-  if (input.length > 0) {
-    const APIKEY = "rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4";
+  console.log(input);
+  const APIKEY = "rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4";
 
-    let url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/collections/search?apiKey=${APIKEY}&name=${input}&verified=true&page_size=10`;
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        const result = data.data;
-        collections = result.map((collection) => {
-          return collection
-        });
-        collections.sort();
-        autocomplete(document.getElementById("nameCollection"), collections);
+  let url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/collections/search?apiKey=${APIKEY}&name=${input}&verified=true&page_size=10`;
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      const result = data.data;
+      collections = result.map((collection) => {
+        return {
+          name: collection.name,
+          logo: `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/${collection.logo}?apiKey=${APIKEY}`,
+        };
       });
-  }
-
+      
+      autocomplete(document.getElementById("nameCollection"), collections);
+    });
 }
-let input = 'default';
-const processChanges = debounce(() => saveInput(input));
+
+const processChanges = debounce(() => saveInput());
 
 document
   .getElementById("nameCollection")
   .addEventListener("input", async (event) => {
-    input = event.target.value;
-    if (input.length > 0) {
-      processChanges();
-    }
-  })
-function autoCompleteDefault(arr) {
-  if (!arr) arr = defaultSuggestions;
-  let input = document.getElementById("nameCollection")
+    let input = event.target.value;
+    processChanges(input);
 
-  var dropdown, // dropdown
-    items, // item of dropdown
-    i
-  currentFocus = -1;
-  /*create a DIV element that will contain the items (values):*/
-  dropdown = document.createElement("DIV");
-  dropdown.setAttribute("id", "autocomplete-list");
-  dropdown.setAttribute("class", "autocomplete-items scroll");
-  /*append the DIV element as a child of the autocomplete container:*/
-  input.parentNode.appendChild(dropdown);
-  for (i = 0; i < arr.length; i++) {
-
-    /*create a DIV element for each matching element:*/
-    items = document.createElement("DIV");
-
-    items.innerHTML = `<img class= "lazy-image" style=" border-radius: 50%;width: 50px;height: 50px; margin-right: 20px" src="https://i.pinimg.com/originals/3f/2c/97/3f2c979b214d06e9caab8ba8326864f3.gif" data-src="https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/${arr[i].logo}?apiKey=rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4">`;
-    items.innerHTML += "<strong>" + arr[i].name + "</strong>";
-
-    /*insert a input field that will hold the current array item's value:*/
-    items.innerHTML += "<input type='hidden' value='" + arr[i].name + "'>";
-    /*execute a function when someone clicks on the item value (DIV element):*/
-    items.addEventListener("click", function (e) {
-      /*insert the value for the autocomplete text field:*/
-      input.value = this.getElementsByTagName("input")[0].value;
-      const element = document.getElementById('autocomplete-list');
-      element.parentNode.removeChild(element);
-    });
-    dropdown.appendChild(items);
-
-  }
-  const images = document.querySelectorAll(".lazy-image");
-  const config = {
-    // Khi hình ảnh này cách màn hình 300px,
-    // nó sẽ được load
-    rootMargin: "300px 0px",
-    threshold: 0.01,
-  };
-
-  let observer = new IntersectionObserver(onIntersection, config);
-  images.forEach((image) => {
-    observer.observe(image);
   });
 
-  function onIntersection(entries) {
-    entries.forEach((entry) => {
-      // Nếu hình ảnh đã trở nên visible,
-      // thì thay thế src cũ bằng src mới
-      // và hủy bỏ theo dõi hình ảnh này
-      if (entry.intersectionRatio > 0) {
-        observer.unobserve(entry.target);
-        entry.target.src = entry.target.dataset.src;
-      }
-    });
-  }
-}
-
-
 function autocomplete(inp, arr) {
-  if (arr.length > 0) {
-   return autoCompleteDefault(arr)
-  }
+  /*the autocomplete function takes two arguments,
+          the text field element and an array of possible autocompleted values:*/
   var currentFocus;
-closeAllLists();
-  currentFocus = -1
-//   inp.addEventListener("input", function (e) {
-//     var a, // dropdown
-//       b, // item of dropdown
-//       i,
-//       val = this.value;
-//     closeAllLists();
-//     currentFocus = -1;
-// console.log(currentFocus);
-//     /*create a DIV element that will contain the items (values):*/
-//     a = document.createElement("DIV");
-//     a.setAttribute("id", "autocomplete-list");
-//     a.setAttribute("class", "autocomplete-items scroll");
-//     /*append the DIV element as a child of the autocomplete container:*/
-//     this.parentNode.appendChild(a);
-//     if (val.length > 0) {
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function (e) {
+    var a, // dropdown
+      b, // item of dropdown
+      i,
+      val = this.value;
+    /*close any already open lists of autocompleted values*/
+    closeAllLists();
+    if (!val) {
+      return false;
+    }
+    if (val.length > 0) {
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items scroll");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i].name.toUpperCase().includes(val.toUpperCase())) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
 
-//       for (i = 0; i < arr.length; i++) {
-//         if (arr[i].name.toUpperCase().includes(val.toUpperCase())) {
-//           /*create a DIV element for each matching element:*/
-//           b = document.createElement("DIV");
+          b.innerHTML = `<img class= "lazy-image" style=" border-radius: 50%;width: 50px;height: 50px; margin-right: 20px" src="https://i.pinimg.com/originals/3f/2c/97/3f2c979b214d06e9caab8ba8326864f3.gif" data-src=${arr[i].logo}>`;
+          b.innerHTML += "<strong>" + arr[i].name + "</strong>";
 
-//           b.innerHTML = `<img class= "lazy-image" style=" border-radius: 50%;width: 50px;height: 50px; margin-right: 20px" src="https://i.pinimg.com/originals/3f/2c/97/3f2c979b214d06e9caab8ba8326864f3.gif" data-src="https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/${arr[i].logo}?apiKey=rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4">`;
-//           b.innerHTML += "<strong>" + arr[i].name + "</strong>";
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i].name + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+          b.addEventListener("click", function (e) {
+            /*insert the value for the autocomplete text field:*/
+            inp.value = this.getElementsByTagName("input")[0].value;
+            /*close the list of autocompleted values,
+                    (or any other open lists of autocompleted values:*/
 
-//           /*insert a input field that will hold the current array item's value:*/
-//           b.innerHTML += "<input type='hidden' value='" + arr[i].name + "'>";
-//           /*execute a function when someone clicks on the item value (DIV element):*/
-//           b.addEventListener("click", function (e) {
-//             /*insert the value for the autocomplete text field:*/
-//             inp.value = this.getElementsByTagName("input")[0].value;
-//             /*close the list of autocompleted values,
-//                     (or any other open lists of autocompleted values:*/
-
-//             closeAllLists();
-//           });
-//           a.appendChild(b);
-//         }
-//       }
-//     } else {
-//       autoCompleteDefault(defaultSuggestions);
-//     }
-
-//   });
+            closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+    }
+  });
   /*execute a function presses a key on the keyboard:*/
   inp.addEventListener("keydown", function (e) {
     var x = document.getElementById("autocomplete-list");
-    
     if (x) x = x.getElementsByTagName("div");
-console.log(x);
     if (e.keyCode == 40) {
       /*If the arrow DOWN key is pressed,
               increase the currentFocus variable:*/
@@ -422,3 +324,23 @@ console.log(x);
   }
 }
 
+const sign = async (msg) => {
+  if (w3) {
+    return await w3.eth.personal.sign(msg, account);
+  } else {
+    return false;
+  }
+};
+
+const contract = async (abi, address) => {
+  if (w3) {
+    return new w3.eth.Contract(abi, address);
+  } else {
+    return false;
+  }
+};
+
+const disconnect = async () => {
+  // Close provider session
+  await provider.disconnect();
+};
