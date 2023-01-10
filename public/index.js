@@ -46,7 +46,9 @@ $(document).on("click", ".nft", function () {
   $("#flexCheckDefault").prop("checked", false);
   $("#callZekeke").prop("disabled", true);
   $("#generateQr").prop("disabled", true);
+  $("#downloadNft").prop("disabled", true);
   $(".modal-footer #qr-url").val(link);
+  $("#downloadNft #link-download").attr("href", link);
 
   $("#callZekeke").click(function () {
     $(this).data("clicked", true);
@@ -59,12 +61,42 @@ $(document).on("click", ".nft", function () {
     if (isChecked) {
       $("#callZekeke").prop("disabled", false);
       $("#generateQr").prop("disabled", false);
+      $("#downloadNft").prop("disabled", false);
     } else {
       $("#callZekeke").prop("disabled", true);
       $("#generateQr").prop("disabled", true);
+      $("#downloadNft").prop("disabled", true);
     }
   });
 });
+
+const downloadNft = document.getElementById("link-download");
+downloadNft.addEventListener("click", (event) => {
+  event.preventDefault();
+  // Tải hình ảnh về máy tính
+  downloadImages(downloadNft.href);
+});
+downloadImages = () => {
+  urls.map((url) => {
+    const splitUrl = url.split("/");
+    const filename = splitUrl[splitUrl.length - 1];
+    fetch(url)
+      .then((response) => {
+        response.arrayBuffer().then(function (buffer) {
+          const url = window.URL.createObjectURL(new Blob([buffer]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", filename); //or any other extension
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+};
 
 /* find collecion */
 // let collections = [];
@@ -100,36 +132,64 @@ $(document).on("click", ".nft", function () {
 //       });
 //   }
 // }
-let collections = [];
-document
-  .querySelector("#nameCollection")
-  .addEventListener("input", async function (event) {
-    let input = event.target.value;
-    if (input.length > 0) {
-      setTimeout(() => {
-        const APIKEY = "rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4";
 
-        let url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/collections/search?apiKey=${APIKEY}&name=${input}&verified=true&page_size=10`;
-        fetch(url)
-          .then((res) => res.json())
-          .then((data) => {
-            const result = data.data;
-            collections = result.map((collection) => {
-              return {
-                name: collection.name,
-                logo: `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/${collection.logo}?apiKey=${APIKEY}`,
-              };
-            });
-            // autocomplete(document.getElementById("nameCollection"), collections);
-            if (collections.length !== 0) {
-              autocomplete(
-                document.getElementById("nameCollection"),
-                collections
-              );
-            }
-          });
-      }, 300);
-    }
+let collections = [];
+let defaultSuggestions = [
+  {
+    id: "e53845ac-3c5a-5390-96b2-b4bc140c91e4",
+    name: "CryptoPunks",
+    logo: "https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/:collection?apiKey=rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4",
+    contracts: ["0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB"],
+    verified: true,
+  },
+];
+
+// document.getElementById("nameCollection").addEventListener("click", () => {
+//   var a, // dropdown
+//   b, // item of dropdown
+//   i,
+//   val = this.value;
+//   console.log(val);
+// });
+
+function debounce(func, timeout = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
+
+function saveInput(input) {
+  console.log(input);
+  const APIKEY = "rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4";
+
+  let url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/collections/search?apiKey=${APIKEY}&name=${input}&verified=true&page_size=10`;
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      const result = data.data;
+      collections = result.map((collection) => {
+        return {
+          name: collection.name,
+          logo: `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/${collection.logo}?apiKey=${APIKEY}`,
+        };
+      });
+      
+      autocomplete(document.getElementById("nameCollection"), collections);
+    });
+}
+
+const processChanges = debounce(() => saveInput());
+
+document
+  .getElementById("nameCollection")
+  .addEventListener("input", async (event) => {
+    let input = event.target.value;
+    processChanges(input);
+
   });
 
 function autocomplete(inp, arr) {
@@ -138,8 +198,8 @@ function autocomplete(inp, arr) {
   var currentFocus;
   /*execute a function when someone writes in the text field:*/
   inp.addEventListener("input", function (e) {
-    var a,
-      b,
+    var a, // dropdown
+      b, // item of dropdown
       i,
       val = this.value;
     /*close any already open lists of autocompleted values*/
@@ -147,42 +207,42 @@ function autocomplete(inp, arr) {
     if (!val) {
       return false;
     }
-    currentFocus = -1;
-    /*create a DIV element that will contain the items (values):*/
-    a = document.createElement("DIV");
-    a.setAttribute("id", this.id + "autocomplete-list");
-    a.setAttribute("class", "autocomplete-items scroll");
-    /*append the DIV element as a child of the autocomplete container:*/
-    this.parentNode.appendChild(a);
-    /*for each item in the array...*/
-    for (i = 0; i < arr.length; i++) {
-      if (arr[i].name.toUpperCase().includes(val.toUpperCase())) {
+    if (val.length > 0) {
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items scroll");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i].name.toUpperCase().includes(val.toUpperCase())) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
 
-      /*create a DIV element for each matching element:*/
-      b = document.createElement("DIV");
-      
+          b.innerHTML = `<img class= "lazy-image" style=" border-radius: 50%;width: 50px;height: 50px; margin-right: 20px" src="https://i.pinimg.com/originals/3f/2c/97/3f2c979b214d06e9caab8ba8326864f3.gif" data-src=${arr[i].logo}>`;
+          b.innerHTML += "<strong>" + arr[i].name + "</strong>";
 
-      b.innerHTML = `<img class= "lazy-image" style=" border-radius: 50%;width: 50px;height: 50px; margin-right: 20px" src="https://i.pinimg.com/originals/3f/2c/97/3f2c979b214d06e9caab8ba8326864f3.gif" data-src=${arr[i].logo}>`;
-      b.innerHTML += "<strong>" + arr[i].name + "</strong>";
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i].name + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+          b.addEventListener("click", function (e) {
+            /*insert the value for the autocomplete text field:*/
+            inp.value = this.getElementsByTagName("input")[0].value;
+            /*close the list of autocompleted values,
+                    (or any other open lists of autocompleted values:*/
 
-      /*insert a input field that will hold the current array item's value:*/
-      b.innerHTML += "<input type='hidden' value='" + arr[i].name + "'>";
-      /*execute a function when someone clicks on the item value (DIV element):*/
-      b.addEventListener("click", function (e) {
-        /*insert the value for the autocomplete text field:*/
-        inp.value = this.getElementsByTagName("input")[0].value;
-        /*close the list of autocompleted values,
-                  (or any other open lists of autocompleted values:*/
-
-        closeAllLists();
-      });
-      a.appendChild(b);
+            closeAllLists();
+          });
+          a.appendChild(b);
+        }
       }
     }
   });
   /*execute a function presses a key on the keyboard:*/
   inp.addEventListener("keydown", function (e) {
-    var x = document.getElementById(this.id + "autocomplete-list");
+    var x = document.getElementById("autocomplete-list");
     if (x) x = x.getElementsByTagName("div");
     if (e.keyCode == 40) {
       /*If the arrow DOWN key is pressed,
@@ -263,8 +323,6 @@ function autocomplete(inp, arr) {
     });
   }
 }
-
-
 
 const sign = async (msg) => {
   if (w3) {

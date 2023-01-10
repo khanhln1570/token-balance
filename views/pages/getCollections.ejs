@@ -19,13 +19,18 @@
         <div class="autocomplete form-row">
           <div class="col-md-12 mb-3">
             <label>Find by name<span class="asterisk">*</span></label>
-            <input class='form-control' id="nameCollection" type="text" name="nameCollection"
-              placeholder="Collection name..." required>
+
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-search"></i></span>
+              </div>
+              <input class='form-control' id="nameCollection" type="text" name="nameCollection"
+                placeholder="Search collections" required>
+            </div>
+            <div class="col-md-12 mb-3">
+              <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Find">
+            </div>
           </div>
-          <div class="col-md-12 mb-3">
-            <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Find">
-          </div>
-        </div>
       </form>
       <br>
       <%if(collections) { %>
@@ -52,11 +57,11 @@
             <% }); %>
         </div>
         <%}%>
-        <%if(message!==null) { %>
-          <h2>
-            <%=message %>
-          </h2>
-          <% } %>
+          <%if(message!==null) { %>
+            <h2>
+              <%=message %>
+            </h2>
+            <% } %>
     </div>
 
 
