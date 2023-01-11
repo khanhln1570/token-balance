@@ -9,44 +9,47 @@
 <body class="container">
 
   <main>
-    <div>
-      <p style="text-align: center;">
-        Use our NFT finder to find your NFTs and then use your NFTs to customize your physical products. You can use the
-        NFT finder directly from within the editor to save time. After selecting your product and hitting customize to
-        open the editor, click on the NFT logo to launch the NFT finder.
-      </p>
-    </div>
-    <div class="jumbotron row">
+    <% if(global.version==='v2' ) {%>
+      <div>
+        <p style="text-align: center;">
+          Use our NFT finder to find your NFTs and then use your NFTs to customize your physical products.
+          You can use the NFT finder directly from within the editor to save time.
+        </p>
+      </div>
+      <%}%>
 
-      <div class="col-md-12">
-        <h1>NFT Finder</h1>
-        <div class="row">
+        <div class="jumbotron row">
 
-          <div class="col-4">
+          <div class="col-md-12">
+            <h1>NFT Finder</h1>
+            <div class="row">
 
-          </div>
-          <div class="col-md-4">
+              <div class="col-4">
 
-            <button onclick="location.href = '/nft/getNFTs';" type="button" class="btn btn-dark btn-lg btn-block"><i
-                class="fa-solid fa-wallet"></i> By Wallet</button>
-            <button onclick="location.href = '/nft/getCollections';" type="button"
-              class="btn btn-dark btn-lg btn-block"><i class="fa-solid fa-th" aria-hidden="true"></i> By
-              Collection</button>
-            <button onclick="location.href = '/nft/getSpecific';" type="button" class="btn btn-dark btn-lg btn-block"><i
-                class="fa-solid fa-list-alt" aria-hidden="true"></i> By Contract</button>
-            <button onclick="location.href = '/nft/getNFTOpensea';" type="button"
-              class="btn btn-dark btn-lg btn-block"><i class="fa-solid fa-link" aria-hidden="true"></i> By Opensea
-              URL</button>
-          </div>
-          <div class="col-4">
+              </div>
+              <div class="col-md-4">
+
+                <button onclick="location.href = '/nft/getNFTs';" type="button" class="btn btn-dark btn-lg btn-block"><i
+                    class="fa-solid fa-wallet"></i> By Wallet</button>
+                <button onclick="location.href = '/nft/getCollections';" type="button"
+                  class="btn btn-dark btn-lg btn-block"><i class="fa-solid fa-th" aria-hidden="true"></i> By
+                  Collection</button>
+                <button onclick="location.href = '/nft/getSpecific';" type="button"
+                  class="btn btn-dark btn-lg btn-block"><i class="fa-solid fa-list-alt" aria-hidden="true"></i> By
+                  Contract</button>
+                <button onclick="location.href = '/nft/getNFTOpensea';" type="button"
+                  class="btn btn-dark btn-lg btn-block"><i class="fa-solid fa-link" aria-hidden="true"></i> By Opensea
+                  URL</button>
+              </div>
+              <div class="col-4">
+
+              </div>
+
+            </div>
 
           </div>
 
         </div>
-
-      </div>
-
-    </div>
 
 
 

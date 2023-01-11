@@ -1,32 +1,40 @@
 <div class="modal fade" id="modal-select-image" tabindex="-1" role="dialog" aria-labelledby="modal-select-imageTitle"
-aria-hidden="true">
-<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLongTitle">Import NFT</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body" style="text-align: center;">
-      <img id="image-detail" width="250" height="250">
-      <h5 id="image-title"></h5>
-      <p id="image-tokenId"></p>
-      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-      <label class="form-check-label" for="flexCheckDefault">
-        I'm printing NFTs that I own for my personal use, only, and not for resale.
-      </label>
-    </div>
-    <div class="modal-footer">
-      <button id="callZekeke" type="button" class="btn btn-primary" disabled><i class="fa-solid fa-file-import"></i> Import NFT</button>
-      <form method="post" action="/qr/generate">
-        <button id="generateQr" type="submit" class="btn btn-primary" disabled><i class="fa-solid fa-qrcode"></i> Generate QR code</button>
-        <input id="qr-url" type="text" name="url" hidden>
-      </form>
-      <button id="downloadNft" type="button" class="btn btn-primary" disabled><i class="fa-solid fa-file-download"></i> Download</button>
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Import NFT</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <img id="image-detail" width="250" height="250">
+        <h5 id="image-title"></h5>
+        <p id="image-tokenId"></p>
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          I'm printing NFTs that I own for my personal use, only, and not for resale.
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button id="callZekeke" type="button" class="btn btn-primary" disabled><i class="fa-solid fa-file-import"></i>
+          Import NFT</button>
+        <form method="post" action="/qr/generate">
+          <button id="generateQr" type="submit" class="btn btn-primary" disabled><i class="fa-solid fa-qrcode"></i>
+            Generate QR code</button>
+          <input id="qr-url" type="text" name="url" hidden>
+        </form>
+        <% if(global.version==='v2' ) {%>
+          <button id="downloadNft" type="button" class="btn btn-primary" disabled><i
+              class="fa-solid fa-file-download"></i> Download</button>
+          <%}%>
+
+      </div>
     </div>
   </div>
 </div>
-</div>
-<!-- <p class="text-center text-muted">&copy; Kustomly 2023</p> -->
-<script src="/index.js"></script>
+<% if(global.version==='v1' ) {%>
+  <p class="text-center text-muted">&copy; Kustomly 2023</p>
+  <%}%>
+    <script src="/index.js"></script>

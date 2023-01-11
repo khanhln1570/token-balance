@@ -13,6 +13,16 @@ app.use(express.urlencoded({ extended: true }));
 
 // index page
 app.get("/", function (req, res) {
+  res.redirect('/search');
+});
+// index page v2
+app.get("/search", function (req, res) {
+  global.version = "v2"
+  res.render("pages/index");
+});
+// index page v1
+app.get("/import", function (req, res) {
+  global.version = "v1"
   res.render("pages/index");
 });
 
