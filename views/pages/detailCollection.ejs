@@ -32,11 +32,11 @@
       <%if(!collections) { %>
         <h1>Not Found Any NFT</h1>
         <% }else {%>
-          <div class="wrap row">
+          <div class="wrap">
 
             <% collections.forEach(function(collection) { %>
 
-              <div class="card col-md-3 col-sm-6 nft" data-toggle="modal" data-target="#modal-select-image"
+              <div class="card nft" data-toggle="modal" data-target="#modal-select-image"
                 data-link="<%=collection.image_url%>" data-title="<%=collection.name%>"
                 data-tokenid="<%=collection.token_id%> ">
                 <img src='https://i.pinimg.com/originals/3f/2c/97/3f2c979b214d06e9caab8ba8326864f3.gif'
