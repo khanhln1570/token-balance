@@ -20,14 +20,18 @@
       <form method="get" action="/nft/getNFTs">
         <div class="form-row">
           <div class="col-md-12 mb-3">
-            <label>Find a NFTs By Wallet<span class="asterisk">*</span></label>
-            <input class='form-control' id="walletAddress" type="text" name="walletAddress"
-              placeholder="Wallet address..." value="<%=address ? address : ''%>" required>
+            <div class="input-group">
+              <div class="custom-file">
+                <input class='form-control' id="walletAddress" type="text" name="walletAddress"
+                  placeholder="Wallet address..." value="<%=address ? address : ''%>" required>
+              </div>
+              <div class="input-group-append">
+               <img class="btn-outline-secondary" onclick="connectWC()" id="connect-button" width="40" src="https://play-lh.googleusercontent.com/jrRKh2MmTQr7ZL7_61MgH-DJEHlYgOKTjwhCrRr2R4Ly9NYUG-9s0X2aZ1tqG3rScfI">
+              </div>
+            </div>
           </div>
           <div class="col-md-12 mb-3">
             <input class='col-md-12 mb-3 btn btn-info' type="submit" value="Find" onclick="disconnect()">
-            <button type='button' onclick="connectWC()" id="connect-button" class="btn btn-outline-secondary"><i
-                class="fa-solid fa-wallet"></i></button>
           </div>
         </div>
       </form>

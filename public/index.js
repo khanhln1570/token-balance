@@ -79,23 +79,23 @@ downloadNft.addEventListener("click", (event) => {
 });
 const downloadImages = (url, title) => {
 
-   
-    const filename = `${title}.png`;
-    fetch(url)
-      .then((response) => {
-        response.arrayBuffer().then(function (buffer) {
-          const url = window.URL.createObjectURL(new Blob([buffer]));
-          const link = document.createElement("a");
-          link.href = url;
-          link.setAttribute("download", filename); //or any other extension
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        });
-      })
-      .catch((err) => {
-        console.log(err);
+
+  const filename = `${title}.png`;
+  fetch(url)
+    .then((response) => {
+      response.arrayBuffer().then(function (buffer) {
+        const url = window.URL.createObjectURL(new Blob([buffer]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", filename); //or any other extension
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
 };
 
@@ -185,7 +185,6 @@ let defaultSuggestions = [
 ];
 
 
-
 function debounce(func, timeout = 300) {
   let timer;
   return (...args) => {
@@ -199,9 +198,17 @@ function debounce(func, timeout = 300) {
 function saveInput(input) {
   if (input.length > 0) {
     const APIKEY = "rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4";
-
-    let url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/collections/search?apiKey=${APIKEY}&name=${input}&verified=true&page_size=10`;
-    fetch(url)
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
+    headers.append("Authorization", `Bearer ${APIKEY}`);
+    headers.append('Access-Control-Allow-Origin', '*');
+    const requestOptions = {
+      method: 'GET',
+      headers: headers
+    };
+    let url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/collections/search?name=${input}&verified=true&page_size=10`;
+    fetch(url, requestOptions)
       .then((res) => res.json())
       .then((data) => {
         const result = data.data;
@@ -292,7 +299,6 @@ function autocomplete(inp, arr) {
       val = this.value;
     closeAllLists();
     currentFocus = -1;
-    console.log(currentFocus);
     /*create a DIV element that will contain the items (values):*/
     a = document.createElement("DIV");
     a.setAttribute("id", "autocomplete-list");
