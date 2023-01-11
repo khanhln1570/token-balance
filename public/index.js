@@ -53,10 +53,18 @@ $(document).on("click", ".nft", function () {
   $("#downloadNft").attr("data-image-title", title);
 
   $("#callZekeke").click(function () {
-    $(this).data("clicked", true);
-    if ($("#callZekeke").data("clicked")) {
-      callZekeke(link);
+    console.log($(this).attr('disabled') === 'disabled');
+    if ($(this).attr('disabled') === 'disabled') {
+      console.log('okdck');
+    } else {
+      console.log('okdck2');
+      $(this).data("clicked", true);
+      if ($("#callZekeke").data("clicked")) {
+        callZekeke(link);
+      }
     }
+
+
   });
   $("#flexCheckDefault").change(function () {
     let isChecked = $("#flexCheckDefault").is(":checked");
@@ -202,7 +210,6 @@ function saveInput(input) {
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
     headers.append("Authorization", `Bearer ${APIKEY}`);
-    headers.append('Access-Control-Allow-Origin', '*');
     const requestOptions = {
       method: 'GET',
       headers: headers
@@ -215,7 +222,7 @@ function saveInput(input) {
         collections = result.map((collection) => {
           return collection
         });
-        collections.sort();
+        collections = collections.sort((a, b) => { return a.name.split(" ").join("").localeCompare(b.name.split(" ").join("")) });
         autocomplete(document.getElementById("nameCollection"), collections);
       });
   }

@@ -1,5 +1,6 @@
 body {
   padding-top: 50px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 .btn {
   background-color: #35b8be !important;
