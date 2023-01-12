@@ -11,7 +11,7 @@ app.set("view engine", "ejs");
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
-let defaultSuggestions = [
+global.defaultCollections = [
   {
     id: "e53845ac-3c5a-5390-96b2-b4bc140c91e4",
     name: "CryptoPunks",
@@ -92,7 +92,6 @@ let defaultSuggestions = [
     "verified": true
   }
 ];
-global.defaultCollections = defaultSuggestions;
 // index page
 app.get("/", function (req, res) {
   res.redirect('/search');
