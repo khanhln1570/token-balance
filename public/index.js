@@ -1,3 +1,4 @@
+let collections = [];
 let defaultSuggestions = [
   {
     id: "e53845ac-3c5a-5390-96b2-b4bc140c91e4",
@@ -79,6 +80,9 @@ let defaultSuggestions = [
     "verified": true
   }
 ];
+let input = 'default';
+const processChanges = debounce(() => saveInput(input));
+
 /** lazy image */
 const images = document.querySelectorAll(".lazy-image");
 const config = {
@@ -190,7 +194,7 @@ const downloadImages = (url, title) => {
 
 
 
-let collections = [];
+
 
 
 
@@ -229,9 +233,6 @@ function saveInput(input) {
   }
 
 }
-let input = 'default';
-const processChanges = debounce(() => saveInput(input));
-
 
 function autoCompleteDefault(arr, isDefault = true) {
   if (!arr) arr = defaultSuggestions;
