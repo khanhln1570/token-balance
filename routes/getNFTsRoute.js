@@ -317,6 +317,7 @@ router.get("/detailCollection", async function (req, res) {
           collections: null,
           contractAddress: null,
           message: "NOT FOUND",
+          nameCollection: nameCollection
         });
       }
       // console.log(collections);
@@ -328,6 +329,7 @@ router.get("/detailCollection", async function (req, res) {
         collections: collections,
         contractAddress: contract_address,
         message: null,
+        nameCollection: nameCollection
       });
     })
     .catch((error) => console.log("error", error));

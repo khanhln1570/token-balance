@@ -36,5 +36,26 @@
 </div>
 <% if(global.version==='v1' ) {%>
   <p class="text-center text-muted">&copy; Kustomly 2023</p>
-  <%}%>
-    <script src="/index.js"></script>
+  <%} else {%>
+    <div class="container">
+      <h1>TOP SEARCH</h1>
+      <div class="wrap">
+        <% global.defaultCollections.forEach(function(collection) { %>
+          <div class="card nft"
+            data-link="https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/<%=collection.logo%>?apiKey=rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4"
+            data-title="<%=collection.name%>" data-tokenid="<%=collection.token_id%> ">
+            <img src='https://i.pinimg.com/originals/3f/2c/97/3f2c979b214d06e9caab8ba8326864f3.gif'
+              data-src="https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/<%=collection.logo%>?apiKey=rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4"
+              class="card-img-top lazy-image" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">
+                <%=collection.name%>
+              </h5>
+            </div>
+          </div>
+          <% }); %>
+      </div>
+    </div>
+
+    <%}%>
+      <script src="/index.js"></script>
