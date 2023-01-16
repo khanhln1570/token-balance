@@ -147,13 +147,28 @@ $(document).on("click", ".nft", function () {
   $("#downloadNft").attr("data-image-title", title);
 
   $("#callZekeke").click(function () {
-    if ($(this).attr('disabled') === 'disabled') {
+    let version = $(this).attr("data-version");
+    if (version === 'v2') {
+      $("#warning-version").modal('show')
     } else {
-      $(this).data("clicked", true);
-      if ($("#callZekeke").data("clicked")) {
-        callZekeke(link);
+      if ($(this).attr('disabled') === 'disabled') {
+      } else {
+        $(this).data("clicked", true);
+        if ($("#callZekeke").data("clicked")) {
+          callZekeke(link);
+        }
       }
     }
+
+  });
+
+  $("#generateQr").click(function (event) {
+    let version = $(this).attr("data-version");
+    if (version === "v2") {
+      event.preventDefault();
+      $("#warning-version").modal('show')
+    }
+
   });
   $("#flexCheckDefault").change(function () {
     let isChecked = $("#flexCheckDefault").is(":checked");

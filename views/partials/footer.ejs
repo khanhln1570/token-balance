@@ -18,10 +18,12 @@
         </label>
       </div>
       <div class="modal-footer">
-        <button id="callZekeke" type="button" class="btn btn-primary" disabled><i class="fa-solid fa-file-import"></i>
+        <button id="callZekeke" type="button" class="btn btn-primary" disabled data-version="<%=global.version%>"><i
+            class="fa-solid fa-file-import"></i>
           Import NFT</button>
         <form method="post" action="/qr/generate">
-          <button id="generateQr" type="submit" class="btn btn-primary" disabled><i class="fa-solid fa-qrcode"></i>
+          <button id="generateQr" type="submit" class="btn btn-primary" disabled data-version="<%=global.version%>"><i
+              class="fa-solid fa-qrcode"></i>
             Generate QR code</button>
           <input id="qr-url" type="text" name="url" hidden>
         </form>
@@ -41,21 +43,45 @@
       <h1>TOP SEARCHES</h1>
       <div class="wrap">
         <% global.defaultCollections.forEach(function(collection) { %>
-          <div class="card nft"
-            data-link="https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/<%=collection.logo%>?apiKey=rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4"
-            data-title="<%=collection.name%>" data-tokenid="<%=collection.token_id%> ">
-            <img src='https://i.pinimg.com/originals/3f/2c/97/3f2c979b214d06e9caab8ba8326864f3.gif'
-              data-src="https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/<%=collection.logo%>?apiKey=rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4"
-              class="card-img-top lazy-image" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">
-                <%=collection.name%>
-              </h5>
+          <a href="/nft/detailCollection?nameCollection=<%=collection.name%>"
+            style="text-decoration: none; color:#35b8be">
+            <div class="card nft suggest"
+              data-link="https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/<%=collection.logo%>?apiKey=rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4"
+              data-title="<%=collection.name%>" data-tokenid="<%=collection.token_id%> ">
+              <img src='https://i.pinimg.com/originals/3f/2c/97/3f2c979b214d06e9caab8ba8326864f3.gif'
+                data-src="https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/<%=collection.logo%>?apiKey=rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4"
+                class="card-img-top lazy-image" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%=collection.name%>
+                </h5>
+              </div>
             </div>
-          </div>
+          </a>
+
           <% }); %>
       </div>
     </div>
 
     <%}%>
-<script src="/index.js"></script>
+      <div id="warning-version" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Alert</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>First, select a product to customize!</p>
+            </div>
+            <div class="modal-footer">
+              <button onclick="location.href = 'https:\/\/kustomly.com/collections/all'" type="button"
+                class="btn btn-primary">See all products</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script src="/index.js"></script>

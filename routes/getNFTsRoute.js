@@ -282,7 +282,7 @@ router.get("/detailCollection", async function (req, res) {
   const tokenId = req.query.tokenId;
   const contractAddress = req.query.contractAddress;
   const APIKEY = process.env.APIKEY_BLOCKDEAMON;
-  console.log(tokenId, contractAddress, "dcndncndcndcndcndcnd");
+  // console.log(tokenId, contractAddress, "dcndncndcndcndcndcnd");
   let url;
   if (contractAddress && tokenId) {
     url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/assets?contract_address=${contractAddress}&token_id=${tokenId}`;
@@ -294,7 +294,7 @@ router.get("/detailCollection", async function (req, res) {
       message: null,
     });
   }
-console.log(url,"okokkokokokokokokok");
+// console.log(url,"okokkokokokokokokok");
   const config = {
     method: "get",
     url: url,
@@ -321,7 +321,6 @@ console.log(url,"okokkokokokokokokok");
           nameCollection: nameCollection
         });
       }
-      console.log(collections.length === 0);
       let contract_address = collections[0].contract_address
         ? collections[0].contract_address
         : null;
