@@ -64,6 +64,8 @@ h1 {
   margin-bottom: 20px;
   transition: 0.2s;
   border-radius: 10px;
+  height: 295px;
+  width: 200px;
 }
 
 .wrap .card:hover {

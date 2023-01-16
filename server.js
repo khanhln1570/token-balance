@@ -75,7 +75,7 @@ global.defaultCollections = [
   },
   {
     "id": "58c31f85-d52e-51be-b358-60977fb7df95",
-    "name": "CLONE X - X TAKASHI MURAKAMI",
+    "name": "CLONE X",
     "logo": "token/0x49cF6f5d44E70224e2E23fDcdd2C053F30aDA28B/a23b0fb3-b844-5cda-ad82-499728d0a7cd.png",
     "contracts": [
       "0x49cF6f5d44E70224e2E23fDcdd2C053F30aDA28B"
