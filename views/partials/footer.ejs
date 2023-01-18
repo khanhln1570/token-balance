@@ -40,7 +40,7 @@
   <p class="text-center text-muted">&copy; Kustomly 2023</p>
   <%} else {%>
     <div class="container">
-      <h1>TOP SEARCHES</h1>
+      <h1>Top Searches</h1>
       <div class="wrap">
         <% global.defaultCollections.forEach(function(collection) { %>
           <a href="/nft/detailCollection?nameCollection=<%=collection.name%>"
@@ -67,8 +67,8 @@
       <div id="warning-version" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Alert</h5>
+            <div class="modal-header" >
+              <h5 style="text-align: center;" class="modal-title">Hey!</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -77,7 +77,7 @@
               <p>First, select a product to customize!</p>
             </div>
             <div class="modal-footer">
-              <button onclick="location.href = 'https:\/\/kustomly.com/collections/all'" type="button"
+              <button onclick="window.parent.location.href = 'https:\/\/kustomly.com/collections/all'" type="button"
                 class="btn btn-primary">See all products</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
