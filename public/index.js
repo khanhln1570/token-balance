@@ -71,14 +71,14 @@ let defaultSuggestions = [
     "verified": true
   },
   {
-    "id": "3e7665ee-a041-5cb2-8d50-09f255f3b95f",
-    "name": "BEANZ Official",
-    "logo": "token/0x306b1ea3ecdf94aB739F1910bbda052Ed4A9f949/20240729-c0d9-5b20-97b7-9536059db8ee.png",
+    "id": "82a84cd9-4753-502f-84f0-5e819e43a67b",
+    "name": "GossApe Girl",
+    "logo": "collection/82a84cd9-4753-502f-84f0-5e819e43a67b/logo.gif",
     "contracts": [
-      "0x306b1ea3ecdf94aB739F1910bbda052Ed4A9f949"
+        "0x3bF447963c8d8BDf06751528De40efB0849f3037"
     ],
     "verified": true
-  },
+},
   {
     "id": "cbea0c0a-1de4-5e91-9c1f-86f1a7301022",
     "name": "Pudgy Penguins",
