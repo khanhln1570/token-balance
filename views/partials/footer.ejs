@@ -45,7 +45,7 @@
         <% global.defaultCollections.forEach(function(collection) { %>
           <a href="/nft/detailCollection?nameCollection=<%=collection.name%>"
             style="text-decoration: none; color:#35b8be">
-            <div class="card nft suggest"
+            <div class="card nft"
               data-link="https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/<%=collection.logo%>?apiKey=rBWqZx0eHdgw8DTBLKL0gDBVQz6FCm4C969AsgV15MvFB3Z4"
               data-title="<%=collection.name%>" data-tokenid="<%=collection.token_id%> ">
               <img src='https://i.pinimg.com/originals/3f/2c/97/3f2c979b214d06e9caab8ba8326864f3.gif'
@@ -74,7 +74,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <p>First, select a product to customize!</p>
+              <p>First, select a product to customize.</p>
             </div>
             <div class="modal-footer">
               <button onclick="window.parent.location.href = 'https:\/\/kustomly.com/collections/all'" type="button"

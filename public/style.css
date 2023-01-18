@@ -59,13 +59,12 @@ h1 {
 }
 
 .wrap .card {
-  width: 100%;
+  width: 95%;
   padding: 0;
   margin-bottom: 20px;
   transition: 0.2s;
   border-radius: 10px;
-  height: 295px;
-  width: 200px;
+  height: 280px; 
 }
 
 .wrap .card:hover {
@@ -74,7 +73,7 @@ h1 {
 
 .wrap .card img {
   width: 100%;
-  height: 214px;
+  height: 80%;
   border-radius: 10px 10px 0 0;
 }
 
@@ -83,6 +82,9 @@ h1 {
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
+.card-body {
+  padding: 0.5rem;
+}
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   .wrap {

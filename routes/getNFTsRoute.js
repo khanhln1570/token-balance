@@ -287,7 +287,7 @@ router.get("/detailCollection", async function (req, res) {
   if (contractAddress && tokenId) {
     url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/assets?contract_address=${contractAddress}&token_id=${tokenId}`;
   } else if (nameCollection) {
-    url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/assets?collection_name=${nameCollection}`;
+    url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/assets?collection_name=${nameCollection}&sort_by=mint_date&order=asc&token_type=ERC721&token_type=ERC1155`;
   } else {
     return res.render("pages/detailCollection", {
       collections: null,
@@ -308,7 +308,7 @@ router.get("/detailCollection", async function (req, res) {
     .then((response) => {
       const data = response["data"]["data"];
       // console.log(data);
-      const collections = data.map((collection) => {
+      let collections = data.map((collection) => {
         // collection.token_id = parseInt(collection.token_id);
         collection.image_url = `https://svc.blockdaemon.com/nft/v1/ethereum/mainnet/media/${collection.image_url}?apiKey=${APIKEY}`;
         return collection;
@@ -325,6 +325,7 @@ router.get("/detailCollection", async function (req, res) {
         ? collections[0].contract_address
         : null;
       // console.log(contract_address);
+      collections = collections.filter(collection => collection.image_url!=="")
       res.render("pages/detailCollection", {
         collections: collections,
         contractAddress: contract_address,
