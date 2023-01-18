@@ -26,14 +26,14 @@ let defaultSuggestions = [
     "verified": true
   },
   {
-    "id": "885eb56d-858d-52aa-ba71-38913c9b6cab",
-    "name": "Bored Ape Kennel Club",
-    "logo": "token/0xba30E5F9Bb24caa003E9f2f0497Ad287FDF95623/c02f4e26-e719-573a-befa-08fdaad2714d.png",
+    "id": "5a144c3b-55e5-5332-82b0-9191e9bdee1c",
+    "name": "Kanpai Pandas",
+    "logo": "collection/5a144c3b-55e5-5332-82b0-9191e9bdee1c/logo.png",
     "contracts": [
-      "0xba30E5F9Bb24caa003E9f2f0497Ad287FDF95623"
+        "0xaCF63E56fd08970b43401492a02F6F38B6635C91"
     ],
     "verified": true
-  },
+},
   {
     "id": "070ef5fd-cbce-515f-9b34-10c278fb3074",
     "name": "Doodles",
