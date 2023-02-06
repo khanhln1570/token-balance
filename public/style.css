@@ -64,7 +64,7 @@ h1 {
   margin-bottom: 20px;
   transition: 0.2s;
   border-radius: 10px;
-  height: 190px; 
+  height: 90%;
 }
 
 .wrap .card:hover {
@@ -85,10 +85,20 @@ h1 {
 .card-body {
   padding: 0.5rem;
 }
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   .wrap {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wrap .card {
+    height: 180px;
+  }
+
+  .h5,
+  h5 {
+    font-size: 0.75rem !important;
   }
 }
 
@@ -184,8 +194,4 @@ input[type=submit] {
 
 .modal-footer {
   justify-content: center;
-}
-
-.h5, h5 {
-  font-size: 0.75rem !important;
 }
