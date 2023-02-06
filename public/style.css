@@ -64,7 +64,7 @@ h1 {
   margin-bottom: 20px;
   transition: 0.2s;
   border-radius: 10px;
-  height: 280px; 
+  height: 190px; 
 }
 
 .wrap .card:hover {
@@ -184,4 +184,8 @@ input[type=submit] {
 
 .modal-footer {
   justify-content: center;
+}
+
+.h5, h5 {
+  font-size: 0.75rem !important;
 }
