@@ -193,7 +193,7 @@ const downloadImages = (url, title) => {
 
 
   const filename = `${title}.png`;
-  fetch(url)
+  fetch(`https://cors-anywhere.herokuapp.com/${url}`)
     .then((response) => {
       response.arrayBuffer().then(function (buffer) {
         const url = window.URL.createObjectURL(new Blob([buffer]));
