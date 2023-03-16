@@ -193,7 +193,7 @@ const downloadImages = (url, title) => {
 
 
   const filename = `${title}.png`;
-  fetch(`https://cors-anywhere.herokuapp.com/${url}`)
+  fetch(`https://api.codetabs.com/v1/proxy?quest=${url}`)
     .then((response) => {
       response.arrayBuffer().then(function (buffer) {
         const url = window.URL.createObjectURL(new Blob([buffer]));
@@ -208,7 +208,24 @@ const downloadImages = (url, title) => {
     .catch((err) => {
       console.log(err);
     });
+// Sử dụng fetch để tải về dữ liệu hình ảnh từ URL
+// fetch(url, {mode: 'cors'})
+//   .then(response => response.blob()) // chuyển đổi dữ liệu thành Blob
+//   .then(blob => {
+//     // Tạo đối tượng FileReader
+//     const reader = new FileReader();
 
+//     // Đọc dữ liệu của Blob và chuyển đổi thành base64
+//     reader.readAsDataURL(blob);
+
+//     // Khi quá trình đọc kết thúc, tạo một đối tượng Image mới để hiển thị hình ảnh
+//     reader.onloadend = () => {
+//       const image = new Image();
+//       image.src = reader.result;
+//       document.body.appendChild(image);
+//     };
+//   })
+//   .catch(error => console.error(error));
 };
 
 
